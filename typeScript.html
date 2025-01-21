@@ -1,199 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Advance TypeScript</title>
-        <script src="../css/bootstrap.min.css"></script>
-        <script src="../css/styleguide.css"></script>
-        <script src="../css/style.css"></script>
-        <script src="../js/styleguide.js"></script>
-        <script src="../js/jsguide.js"></script>
-    </head>
-    <body onload="initStyleGuide();">
-        <div id="content">
-            <h1>Advance TypeScript</h1>
-
-<h1 id="typescriptmd">TypeScript.md</h1>
-<h3 id="benefits-of-typescript"><strong>Benefits of TypeScript</strong></h3>
-<h4 id="1-static-typing">1. <strong>Static Typing</strong></h4>
-<ul>
-<li>TypeScript provides static type checking, which helps catch type-related errors during development rather than at runtime.</li>
-<li>Improves code quality and reduces bugs, especially in large codebases.</li>
-</ul>
-<h4 id="2-improved-code-readability-and-maintainability">2. <strong>Improved Code Readability and Maintainability</strong></h4>
-<ul>
-<li>Types serve as documentation for your code, making it easier to understand.</li>
-<li>Explicit types help developers understand data structures and APIs, improving collaboration in teams.</li>
-</ul>
-<h4 id="3-enhanced-ide-support">3. <strong>Enhanced IDE Support</strong></h4>
-<ul>
-<li>TypeScript enhances code editors (e.g., VSCode) with features like:<ul>
-<li>IntelliSense (auto-completion)</li>
-<li>Type inference</li>
-<li>Code navigation (go-to-definition, find references)</li>
-<li>Refactoring tools</li>
-</ul>
-</li>
-</ul>
-<h4 id="4-better-refactoring">4. <strong>Better Refactoring</strong></h4>
-<ul>
-<li>With TypeScript’s type system, refactoring becomes safer because the compiler can point out areas affected by changes.</li>
-<li>Large-scale refactors are easier since type errors are immediately visible.</li>
-</ul>
-<h4 id="5-early-error-detection">5. <strong>Early Error Detection</strong></h4>
-<ul>
-<li>TypeScript detects common errors (e.g., misspelled variables, incorrect function calls) during development.</li>
-<li>Reduces runtime exceptions, leading to more robust applications.</li>
-</ul>
-<h4 id="6-supports-modern-javascript-features">6. <strong>Supports Modern JavaScript Features</strong></h4>
-<ul>
-<li>TypeScript supports ESNext features (e.g., async/await, modules, destructuring) and compiles them to older JavaScript versions.</li>
-<li>This allows developers to use the latest JavaScript features while ensuring compatibility with older environments.</li>
-</ul>
-<h4 id="7-type-inference">7. <strong>Type Inference</strong></h4>
-<ul>
-<li>TypeScript can infer types based on the context, reducing the need for explicit type annotations while still providing type safety.</li>
-</ul>
-<h4 id="8-enhanced-object-oriented-programming">8. <strong>Enhanced Object-Oriented Programming</strong></h4>
-<ul>
-<li>TypeScript supports advanced OOP concepts like:<ul>
-<li>Interfaces</li>
-<li>Abstract classes</li>
-<li>Access modifiers (<code>public</code>, <code>private</code>, <code>protected</code>)</li>
-<li>Generics</li>
-</ul>
-</li>
-<li>Helps enforce design patterns and principles in complex applications.</li>
-</ul>
-<h4 id="9-better-integration-with-libraries">9. <strong>Better Integration with Libraries</strong></h4>
-<ul>
-<li>TypeScript offers a vast collection of type definitions for third-party JavaScript libraries (<code>@types</code>).</li>
-<li>Even if a library is written in plain JavaScript, you can use its types to get strong typing and IDE support.</li>
-</ul>
-<h4 id="10-scalable-codebases">10. <strong>Scalable Codebases</strong></h4>
-<ul>
-<li>As codebases grow, maintaining plain JavaScript becomes harder.</li>
-<li>TypeScript’s type system, modularization features, and tooling help in managing large projects effectively.</li>
-</ul>
-<h4 id="11-community-and-ecosystem">11. <strong>Community and Ecosystem</strong></h4>
-<ul>
-<li>Strong community support and widespread adoption by major frameworks (React, Angular, Vue, etc.).</li>
-<li>Many modern frameworks and libraries come with built-in TypeScript support or type definitions.</li>
-</ul>
-<h4 id="12-interoperability-with-javascript">12. <strong>Interoperability with JavaScript</strong></h4>
-<ul>
-<li>TypeScript is a superset of JavaScript, meaning any valid JavaScript is valid TypeScript.</li>
-<li>You can gradually adopt TypeScript in an existing JavaScript project without rewriting everything.</li>
-</ul>
-<h4 id="13-improved-debugging-experience">13. <strong>Improved Debugging Experience</strong></h4>
-<ul>
-<li>TypeScript can catch errors before running the code, making debugging faster.</li>
-<li>The generated JavaScript code is often cleaner and easier to debug.</li>
-</ul>
-<h4 id="14-optional-static-typing">14. <strong>Optional Static Typing</strong></h4>
-<ul>
-<li>While TypeScript enforces types, it also allows dynamic typing, giving flexibility where strict types are unnecessary.</li>
-</ul>
-<h4 id="use-cases"><strong>Use Cases</strong></h4>
-<ul>
-<li><strong>Enterprise Applications</strong>: TypeScript’s type safety and maintainability make it ideal for large, complex applications.</li>
-<li><strong>Open-Source Libraries</strong>: Many popular libraries use TypeScript for better developer experience and reliability.</li>
-<li><strong>Cross-Platform Apps</strong>: TypeScript is used in frameworks like React Native, Angular, and Ionic to build cross-platform applications.</li>
-</ul>
-<hr>
-<h3 id="key-concepts-in-type-manipulation"><strong>Key Concepts in Type Manipulation</strong></h3>
-<h4 id="1-mapped-types"><strong>1. Mapped Types</strong></h4>
-<p>Mapped types create new types by transforming properties of an existing type.</p>
-<pre><code class="language-ts">type User = {
+  <head>
+    <meta charset="utf-8" />
+    <title>Advance TypeScript</title>
+    <script src="../css/bootstrap.min.css"></script>
+    <script src="../css/styleguide.css"></script>
+    <script src="../css/style.css"></script>
+    <script src="../js/styleguide.js"></script>
+    <link rel="shortcut icon" href="/images/favicon.jpeg" />
+    <script src="../js/jsguide.js"></script>
+  </head>
+  <body onload="initStyleGuide();">
+    <div id="content">
+      <h1 id="typescript-md">TypeScript</h1>
+      <h2 id="-benefits-of-typescript-">
+        <strong>Benefits of TypeScript</strong>
+      </h2>
+      <h3 id="1-static-typing-">1. <strong>Static Typing</strong></h3>
+      <pre><code>TypeScript provides static <span class="hljs-keyword">type</span> <span class="hljs-type">checking, </span>which helps catch <span class="hljs-keyword">type</span>-related errors during development rather than <span class="hljs-keyword">at</span> runtime.
+Improves code quality <span class="hljs-keyword">and</span> reduces bugs, especially <span class="hljs-keyword">in</span> large codebases.
+</code></pre>
+      <h3 id="2-improved-code-readability-and-maintainability-">
+        2. <strong>Improved Code Readability and Maintainability</strong>
+      </h3>
+      <pre><code>Types serve <span class="hljs-keyword">as</span> documentation <span class="hljs-keyword">for</span> your code, making <span class="hljs-keyword">it</span> easier <span class="hljs-keyword">to</span> understand.
+Explicit types help developers understand data structures <span class="hljs-keyword">and</span> APIs, improving collaboration <span class="hljs-keyword">in</span> teams.
+</code></pre>
+      <h3 id="3-enhanced-ide-support-">
+        3. <strong>Enhanced IDE Support</strong>
+      </h3>
+      <p>
+        TypeScript enhances code editors (e.g., VSCode) with features like:
+        IntelliSense (auto-completion) Type inference Code navigation
+        (go-to-definition, find references) Refactoring tools
+      </p>
+      <h3 id="4-better-refactoring-">4. <strong>Better Refactoring</strong></h3>
+      <pre><code><span class="hljs-keyword">With</span> TypeScript’s <span class="hljs-keyword">type</span> <span class="hljs-type">system, </span>refactoring becomes safer because the compiler can point <span class="hljs-keyword">out</span> areas affected by changes.
+Large-scale refactors are easier since <span class="hljs-keyword">type</span> <span class="hljs-type">errors </span>are immediately visible.
+</code></pre>
+      <h3 id="5-early-error-detection-">
+        5. <strong>Early Error Detection</strong>
+      </h3>
+      <pre><code>TypeScript detects <span class="hljs-keyword">common</span> errors (e.g., misspelled variables, incorrect <span class="hljs-function"><span class="hljs-keyword">function</span></span> calls) during development.
+Reduces runtime exceptions, leading to more robust applications.
+</code></pre>
+      <h3 id="6-supports-modern-javascript-features-">
+        6. <strong>Supports Modern JavaScript Features</strong>
+      </h3>
+      <p>
+        TypeScript supports ESNext features (e.g., async/await, modules,
+        destructuring) and compiles them to older JavaScript versions.
+      </p>
+      <p>
+        This allows developers to use the latest JavaScript features while
+        ensuring compatibility with older environments.
+      </p>
+      <h3 id="7-type-inference-">7. <strong>Type Inference</strong></h3>
+      <p>
+        TypeScript can infer types based on the context, reducing the need for
+        explicit type annotations while still providing type safety.
+      </p>
+      <h3 id="8-enhanced-object-oriented-programming-">
+        8. <strong>Enhanced Object-Oriented Programming</strong>
+      </h3>
+      <p>
+        TypeScript supports advanced OOP concepts like: Interfaces Abstract
+        classes Access modifiers (<code>public</code>, <code>private</code>,
+        <code>protected</code>) Generics Helps enforce design patterns and
+        principles in complex applications.
+      </p>
+      <h3 id="9-better-integration-with-libraries-">
+        9. <strong>Better Integration with Libraries</strong>
+      </h3>
+      <p>
+        TypeScript offers a vast collection of type definitions for third-party
+        JavaScript libraries (<code>@types</code>). Even if a library is written
+        in plain JavaScript, you can use its types to get strong typing and IDE
+        support.
+      </p>
+      <h3 id="10-scalable-codebases-">
+        10. <strong>Scalable Codebases</strong>
+      </h3>
+      <p>
+        As codebases grow, maintaining plain JavaScript becomes harder.
+        TypeScript’s type system, modularization features, and tooling help in
+        managing large projects effectively.
+      </p>
+      <h3 id="11-community-and-ecosystem-">
+        11. <strong>Community and Ecosystem</strong>
+      </h3>
+      <p>
+        Strong community support and widespread adoption by major frameworks
+        (React, Angular, Vue, etc.). Many modern frameworks and libraries come
+        with built-in TypeScript support or type definitions.
+      </p>
+      <h3 id="12-interoperability-with-javascript-">
+        12. <strong>Interoperability with JavaScript</strong>
+      </h3>
+      <p>
+        TypeScript is a superset of JavaScript, meaning any valid JavaScript is
+        valid TypeScript. You can gradually adopt TypeScript in an existing
+        JavaScript project without rewriting everything.
+      </p>
+      <h3 id="13-improved-debugging-experience-">
+        13. <strong>Improved Debugging Experience</strong>
+      </h3>
+      <p>
+        TypeScript can catch errors before running the code, making debugging
+        faster. The generated JavaScript code is often cleaner and easier to
+        debug.
+      </p>
+      <h3 id="14-optional-static-typing-">
+        14. <strong>Optional Static Typing</strong>
+      </h3>
+      <p>
+        While TypeScript enforces types, it also allows dynamic typing, giving
+        flexibility where strict types are unnecessary.
+      </p>
+      <h3 id="-use-cases-"><strong>Use Cases</strong></h3>
+      <p>
+        <strong>Enterprise Applications</strong>: TypeScript’s type safety and
+        maintainability make it ideal for large, complex applications.
+        <strong>Open-Source Libraries</strong>: Many popular libraries use
+        TypeScript for better developer experience and reliability.
+        <strong>Cross-Platform Apps</strong>: TypeScript is used in frameworks
+        like React Native, Angular, and Ionic to build cross-platform
+        applications.
+      </p>
+      <hr />
+      <h1 id="-key-concepts-in-type-manipulation-">
+        <strong>Key Concepts in Type Manipulation</strong>
+      </h1>
+      <h2 id="-1-mapped-types-"><strong>1. Mapped Types</strong></h2>
+      <p>
+        Mapped types create new types by transforming properties of an existing
+        type.
+      </p>
+      <pre><code class="lang-ts"><span class="hljs-keyword">type</span> <span class="hljs-type">User</span> = {
   id: number;
   name: string;
   isAdmin: boolean;
 };
 
-// Create a type with all properties optional
-type PartialUser = {
-  [K in keyof User]?: User[K];
+// <span class="hljs-type">Create</span> a <span class="hljs-keyword">type</span> with all properties optional
+<span class="hljs-keyword">type</span> <span class="hljs-type">PartialUser</span> = {
+  [<span class="hljs-type">K</span> in keyof <span class="hljs-type">User</span>]?: <span class="hljs-type">User</span>[<span class="hljs-type">K</span>];
 };
 </code></pre>
-<p><strong>Explanation</strong>:</p>
-<ul>
-<li><code>keyof User</code> extracts the keys of <code>User</code> (<code>&#39;id&#39; | &#39;name&#39; | &#39;isAdmin&#39;</code>).</li>
-<li><code>[K in keyof User]</code> iterates over each key.</li>
-<li><code>User[K]</code> represents the type of each key.</li>
-</ul>
-<p><strong>Built-in Utility Example</strong>:</p>
-<pre><code class="language-ts">type PartialUser = Partial&lt;User&gt;; // Built-in mapped type
+      <p><strong>Explanation</strong>:</p>
+      <ul>
+        <li>
+          <code>keyof User</code> extracts the keys of <code>User</code> (<code
+            >&#39;id&#39; | &#39;name&#39; | &#39;isAdmin&#39;</code
+          >).
+        </li>
+        <li><code>[K in keyof User]</code> iterates over each key.</li>
+        <li><code>User[K]</code> represents the type of each key.</li>
+      </ul>
+      <p><strong>Built-in Utility Example</strong>:</p>
+      <pre><code class="lang-ts"><span class="hljs-keyword">type</span> <span class="hljs-type">PartialUser </span>= Partial&lt;User&gt;; // Built-<span class="hljs-keyword">in</span> mapped <span class="hljs-keyword">type</span>
 </code></pre>
-<hr>
-<h4 id="2-keyof-operator"><strong>2. Keyof Operator</strong></h4>
-<p><code>keyof</code> extracts the keys of a type as a union of string literals.</p>
-<pre><code class="language-ts">type User = {
-  id: number;
-  name: string;
+      <hr />
+      <h2 id="-2-keyof-operator-"><strong>2. Keyof Operator</strong></h2>
+      <p>
+        <code>keyof</code> extracts the keys of a type as a union of string
+        literals.
+      </p>
+      <pre><code class="lang-ts"><span class="hljs-keyword">type</span> <span class="hljs-keyword">User</span> <span class="hljs-title">= {
+  id</span>: <span class="hljs-keyword">number</span>;
+  name: <span class="hljs-keyword">string</span>;
 };
 
-type UserKeys = keyof User; // &#39;id&#39; | &#39;name&#39;
+<span class="hljs-keyword">type</span> UserKeys = keyof User; // 'id' | 'name'
 </code></pre>
-<p>This is useful when you want to create dynamic property access or enforce strict key checks.</p>
-<hr>
-<h4 id="3-conditional-types"><strong>3. Conditional Types</strong></h4>
-<p>Conditional types allow defining types based on conditions.</p>
-<pre><code class="language-ts">type IsString&lt;T&gt; = T extends string ? true : false;
+      <p>
+        This is useful when you want to create dynamic property access or
+        enforce strict key checks.
+      </p>
+      <hr />
+      <h2 id="-3-conditional-types-"><strong>3. Conditional Types</strong></h2>
+      <p>Conditional types allow defining types based on conditions.</p>
+      <pre><code class="lang-ts"><span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">IsString</span>&lt;T&gt; </span>= T extends string ? <span class="hljs-keyword">true</span> : <span class="hljs-keyword">false</span>;
 
-type A = IsString&lt;string&gt;; // true
-type B = IsString&lt;number&gt;; // false
+<span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">A</span> </span>= IsString&lt;string&gt;; <span class="hljs-comment">// true</span>
+<span class="hljs-class"><span class="hljs-keyword">type</span> <span class="hljs-title">B</span> </span>= IsString&lt;number&gt;; <span class="hljs-comment">// false</span>
 </code></pre>
-<p>Conditional types are useful for creating type-level logic, such as filtering types or enforcing constraints.</p>
-<hr>
-<h4 id="4-infer-keyword"><strong>4. Infer Keyword</strong></h4>
-<p><code>infer</code> is used within conditional types to extract a part of a type.</p>
-<pre><code class="language-ts">type ReturnType&lt;T&gt; = T extends (...args: any[]) =&gt; infer R ? R : never;
+      <p>
+        Conditional types are useful for creating type-level logic, such as
+        filtering types or enforcing constraints.
+      </p>
+      <hr />
+      <h2 id="-4-infer-keyword-"><strong>4. Infer Keyword</strong></h2>
+      <p>
+        <code>infer</code> is used within conditional types to extract a part of
+        a type.
+      </p>
+      <pre><code class="lang-ts"><span class="hljs-keyword">type</span> <span class="hljs-type">ReturnType</span>&lt;<span class="hljs-type">T</span>&gt; = <span class="hljs-type">T</span> extends (...args: any[]) =&gt; infer <span class="hljs-type">R</span> ? <span class="hljs-type">R</span> : never;
 
-type MyFunction = () =&gt; number;
-type Result = ReturnType&lt;MyFunction&gt;; // number
+<span class="hljs-keyword">type</span> <span class="hljs-type">MyFunction</span> = () =&gt; number;
+<span class="hljs-keyword">type</span> <span class="hljs-type">Result</span> = <span class="hljs-type">ReturnType</span>&lt;<span class="hljs-type">MyFunction</span>&gt;; // number
 </code></pre>
-<p>Here, <code>infer R</code> extracts the return type of a function.</p>
-<hr>
-<h4 id="5-utility-types"><strong>5. Utility Types</strong></h4>
-<p>TypeScript provides built-in utility types that simplify common type manipulations.</p>
-<ul>
-<li><code>Partial&lt;T&gt;</code>: Makes all properties of <code>T</code> optional.</li>
-<li><code>Required&lt;T&gt;</code>: Makes all properties of <code>T</code> required.</li>
-<li><code>Readonly&lt;T&gt;</code>: Makes all properties of <code>T</code> read-only.</li>
-<li><code>Pick&lt;T, K&gt;</code>: Picks a subset of properties from <code>T</code>.</li>
-<li><code>Omit&lt;T, K&gt;</code>: Omits a subset of properties from <code>T</code>.</li>
-</ul>
-<pre><code class="language-ts">type User = {
-  id: number;
-  name: string;
-  email: string;
+      <p>Here, <code>infer R</code> extracts the return type of a function.</p>
+      <hr />
+      <h2 id="-5-utility-types-"><strong>5. Utility Types</strong></h2>
+      <p>
+        TypeScript provides built-in utility types that simplify common type
+        manipulations.
+      </p>
+      <ul>
+        <li>
+          <code>Partial&lt;T&gt;</code>: Makes all properties of
+          <code>T</code> optional.
+        </li>
+        <li>
+          <code>Required&lt;T&gt;</code>: Makes all properties of
+          <code>T</code> required.
+        </li>
+        <li>
+          <code>Readonly&lt;T&gt;</code>: Makes all properties of
+          <code>T</code> read-only.
+        </li>
+        <li>
+          <code>Pick&lt;T, K&gt;</code>: Picks a subset of properties from
+          <code>T</code>.
+        </li>
+        <li>
+          <code>Omit&lt;T, K&gt;</code>: Omits a subset of properties from
+          <code>T</code>.
+        </li>
+      </ul>
+      <pre><code class="lang-ts"><span class="hljs-keyword">type</span> <span class="hljs-keyword">User</span> <span class="hljs-title">= {
+  id</span>: <span class="hljs-keyword">number</span>;
+  name: <span class="hljs-keyword">string</span>;
+  email: <span class="hljs-keyword">string</span>;
 };
 
-type UserWithoutEmail = Omit&lt;User, &#39;email&#39;&gt;;
+<span class="hljs-keyword">type</span> UserWithoutEmail = Omit<span class="hljs-tag">&lt;User, "email"&gt;</span>;
 </code></pre>
-<hr>
-<h4 id="6-template-literal-types"><strong>6. Template Literal Types</strong></h4>
-<p>You can create string literal types using template literals.</p>
-<pre><code class="language-ts">type Status = &#39;loading&#39; | &#39;success&#39; | &#39;error&#39;;
-type StatusMessage = `Status is ${Status}`;
+      <hr />
+      <h2 id="-6-template-literal-types-">
+        <strong>6. Template Literal Types</strong>
+      </h2>
+      <p>You can create string literal types using template literals.</p>
+      <pre><code class="lang-ts"><span class="hljs-keyword">type</span> <span class="hljs-type">Status </span>= <span class="hljs-string">"loading"</span> | <span class="hljs-string">"success"</span> | <span class="hljs-string">"error"</span>;
+<span class="hljs-keyword">type</span> <span class="hljs-type">StatusMessage </span>= `Status <span class="hljs-keyword">is</span> ${Status}`;
 
-const message: StatusMessage = &#39;Status is success&#39;;
+const message: StatusMessage = <span class="hljs-string">"Status is success"</span>;
 </code></pre>
-<hr>
-<h4 id="7-recursive-types"><strong>7. Recursive Types</strong></h4>
-<p>Recursive types are types that reference themselves, useful for defining complex structures like trees or nested arrays.</p>
-<pre><code class="language-ts">type NestedArray&lt;T&gt; = T | NestedArray&lt;T&gt;[];
+      <hr />
+      <h2 id="-7-recursive-types-"><strong>7. Recursive Types</strong></h2>
+      <p>
+        Recursive types are types that reference themselves, useful for defining
+        complex structures like trees or nested arrays.
+      </p>
+      <pre><code class="lang-ts"><span class="hljs-built_in">type</span> NestedArray&lt;<span class="hljs-built_in">T</span>&gt; = <span class="hljs-built_in">T</span> | NestedArray&lt;<span class="hljs-built_in">T</span>&gt;[];
 
-const example: NestedArray&lt;number&gt; = [1, [2, [3, 4]], 5];
+const examp<span class="hljs-symbol">le:</span> NestedArray&lt;number&gt; = [<span class="hljs-number">1</span>, [<span class="hljs-number">2</span>, [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>]], <span class="hljs-number">5</span>];
 </code></pre>
-<hr>
-<h3 id="practical-example-deep-partial"><strong>Practical Example: Deep Partial</strong></h3>
-<p>Let&#39;s create a utility type <code>DeepPartial&lt;T&gt;</code> that makes all properties and nested properties optional.</p>
-<pre><code class="language-ts">type DeepPartial&lt;T&gt; = {
-  [K in keyof T]?: T[K] extends object ? DeepPartial&lt;T[K]&gt; : T[K];
+      <hr />
+      <h2 id="-practical-example-deep-partial-">
+        <strong>Practical Example: Deep Partial</strong>
+      </h2>
+      <p>
+        Let&#39;s create a utility type <code>DeepPartial&lt;T&gt;</code> that
+        makes all properties and nested properties optional.
+      </p>
+      <pre><code class="lang-ts"><span class="hljs-keyword">type</span> <span class="hljs-type">DeepPartial</span>&lt;<span class="hljs-type">T</span>&gt; = {
+  [<span class="hljs-type">K</span> in keyof <span class="hljs-type">T</span>]?: <span class="hljs-type">T</span>[<span class="hljs-type">K</span>] extends object ? <span class="hljs-type">DeepPartial</span>&lt;<span class="hljs-type">T</span>[<span class="hljs-type">K</span>]&gt; : <span class="hljs-type">T</span>[<span class="hljs-type">K</span>];
 };
 
-type User = {
+<span class="hljs-keyword">type</span> <span class="hljs-type">User</span> = {
   id: number;
   profile: {
     name: string;
@@ -204,246 +280,367 @@ type User = {
   };
 };
 
-type PartialUser = DeepPartial&lt;User&gt;;
+<span class="hljs-keyword">type</span> <span class="hljs-type">PartialUser</span> = <span class="hljs-type">DeepPartial</span>&lt;<span class="hljs-type">User</span>&gt;;
 </code></pre>
-<hr>
-<h3 id="use-cases-of-type-manipulation"><strong>Use Cases of Type Manipulation</strong></h3>
-<ol>
-<li><strong>Dynamic API Responses</strong>: Manipulate API response types based on specific conditions (e.g., partial updates).</li>
-<li><strong>Form Builders</strong>: Create types for form fields dynamically based on the data model.</li>
-<li><strong>Data Validation</strong>: Define strict validation types using conditional types and inference.</li>
-</ol>
-<hr>
-<p>Would you like me to create some practical examples of type manipulation for your <strong>Next.js project</strong>?</p>
-<hr>
-<h3 id="best-practices-for-adding-types-in-a-nextjs-project"><strong>Best Practices for Adding Types in a Next.js Project</strong></h3>
-<p>In a Next.js project, TypeScript types can be applied at various levels, such as pages, API routes, components, props, hooks, and more. Below are best practices with examples on where and how to add types effectively:</p>
-<hr>
-<h3 id="1-adding-types-to-page-components"><strong>1. Adding Types to Page Components</strong></h3>
-<p>In Next.js, pages are React components, so adding types to <code>props</code> and <code>NextPage</code> is essential.</p>
-<pre><code class="language-ts">// pages/index.tsx
-import { NextPage } from &#39;next&#39;;
+      <hr />
+      <h2 id="-use-cases-of-type-manipulation-">
+        <strong>Use Cases of Type Manipulation</strong>
+      </h2>
+      <ol>
+        <li>
+          <strong>Dynamic API Responses</strong>: Manipulate API response types
+          based on specific conditions (e.g., partial updates).
+        </li>
+        <li>
+          <strong>Form Builders</strong>: Create types for form fields
+          dynamically based on the data model.
+        </li>
+        <li>
+          <strong>Data Validation</strong>: Define strict validation types using
+          conditional types and inference.
+        </li>
+      </ol>
+      <hr />
+      <p>
+        Would you like me to create some practical examples of type manipulation
+        for your <strong>Next.js project</strong>?
+      </p>
+      <hr />
+      <h2 id="-best-practices-for-adding-types-in-a-next-js-project-">
+        <strong>Best Practices for Adding Types in a Next.js Project</strong>
+      </h2>
+      <p>
+        In a Next.js project, TypeScript types can be applied at various levels,
+        such as pages, API routes, components, props, hooks, and more. Below are
+        best practices with examples on where and how to add types effectively:
+      </p>
+      <hr />
+      <h2 id="-1-adding-types-to-page-components-">
+        <strong>1. Adding Types to Page Components</strong>
+      </h2>
+      <p>
+        In Next.js, pages are React components, so adding types to
+        <code>props</code> and <code>NextPage</code> is essential.
+      </p>
+      <pre><code class="lang-ts"><span class="hljs-comment">// pages/index.tsx</span>
+<span class="hljs-keyword">import</span> { NextPage } <span class="hljs-keyword">from</span> <span class="hljs-string">"next"</span>;
 
 type HomeProps = {
-  title: string;
+  <span class="hljs-attr">title</span>: string;
 };
 
-const Home: NextPage&lt;HomeProps&gt; = ({ title }) =&gt; {
-  return &lt;h1&gt;{title}&lt;/h1&gt;;
+<span class="hljs-keyword">const</span> Home: NextPage&lt;HomeProps&gt; = <span class="hljs-function">(<span class="hljs-params">{ title }</span>) =&gt;</span> {
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h1</span>&gt;</span>{title}<span class="hljs-tag">&lt;/<span class="hljs-name">h1</span>&gt;</span></span>;
 };
 
-export default Home;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Home;
 </code></pre>
-<p><strong>Best Practice</strong>:</p>
-<ul>
-<li>Use <code>NextPage&lt;Props&gt;</code> for page components.</li>
-<li>Define <code>Props</code> as a separate type or interface.</li>
-<li>For pages without props, use <code>NextPage</code> without generic arguments.</li>
-</ul>
-<hr>
-<h3 id="2-adding-types-to-getstaticprops-and-getserversideprops"><strong>2. Adding Types to getStaticProps and getServerSideProps</strong></h3>
-<p>Both <code>getStaticProps</code> and <code>getServerSideProps</code> have built-in type support.</p>
-<pre><code class="language-ts">// pages/blog.tsx
-import { GetStaticProps, NextPage } from &#39;next&#39;;
+      <p><strong>Best Practice</strong>:</p>
+      <ul>
+        <li>Use <code>NextPage&lt;Props&gt;</code> for page components.</li>
+        <li>Define <code>Props</code> as a separate type or interface.</li>
+        <li>
+          For pages without props, use <code>NextPage</code> without generic
+          arguments.
+        </li>
+      </ul>
+      <hr />
+      <h2 id="-2-adding-types-to-getstaticprops-and-getserversideprops-">
+        <strong
+          >2. Adding Types to getStaticProps and getServerSideProps</strong
+        >
+      </h2>
+      <p>
+        Both <code>getStaticProps</code> and
+        <code>getServerSideProps</code> have built-in type support.
+      </p>
+      <pre><code class="lang-ts"><span class="hljs-comment">// pages/blog.tsx</span>
+<span class="hljs-keyword">import</span> { GetStaticProps, NextPage } <span class="hljs-keyword">from</span> <span class="hljs-string">"next"</span>;
 
 type BlogPost = {
-  id: number;
+  <span class="hljs-attr">id</span>: number;
   title: string;
 };
 
 type BlogProps = {
-  posts: BlogPost[];
+  <span class="hljs-attr">posts</span>: BlogPost[];
 };
 
-export const getStaticProps: GetStaticProps&lt;BlogProps&gt; = async () =&gt; {
-  const posts: BlogPost[] = await fetch(&#39;https://api.example.com/posts&#39;).then((res) =&gt; res.json());
-  return { props: { posts } };
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> getStaticProps: GetStaticProps&lt;BlogProps&gt; = <span class="hljs-keyword">async</span> () =&gt; {
+  <span class="hljs-keyword">const</span> posts: BlogPost[] = <span class="hljs-keyword">await</span> fetch(<span class="hljs-string">"https://api.example.com/posts"</span>).then(
+    <span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> res.json()
+  );
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">props</span>: { posts } };
 };
 
-const Blog: NextPage&lt;BlogProps&gt; = ({ posts }) =&gt; (
-  &lt;div&gt;
+<span class="hljs-keyword">const</span> Blog: NextPage&lt;BlogProps&gt; = <span class="hljs-function">(<span class="hljs-params">{ posts }</span>) =&gt;</span> (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
     {posts.map((post) =&gt; (
-      &lt;h2 key={post.id}&gt;{post.title}&lt;/h2&gt;
+      <span class="hljs-tag">&lt;<span class="hljs-name">h2</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{post.id}</span>&gt;</span>{post.title}<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
     ))}
-  &lt;/div&gt;
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
 );
 
-export default Blog;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Blog;
 </code></pre>
-<p><strong>Best Practice</strong>:</p>
-<ul>
-<li>Use <code>GetStaticProps&lt;T&gt;</code> or <code>GetServerSideProps&lt;T&gt;</code> to ensure type safety for returned props.</li>
-<li>Define types for the props returned by these functions and the data they fetch.</li>
-</ul>
-<hr>
-<h3 id="3-adding-types-to-api-routes"><strong>3. Adding Types to API Routes</strong></h3>
-<p>For API routes, use <code>NextApiRequest</code> and <code>NextApiResponse</code>.</p>
-<pre><code class="language-ts">// pages/api/hello.ts
-import { NextApiRequest, NextApiResponse } from &#39;next&#39;;
+      <p><strong>Best Practice</strong>:</p>
+      <ul>
+        <li>
+          Use <code>GetStaticProps&lt;T&gt;</code> or
+          <code>GetServerSideProps&lt;T&gt;</code> to ensure type safety for
+          returned props.
+        </li>
+        <li>
+          Define types for the props returned by these functions and the data
+          they fetch.
+        </li>
+      </ul>
+      <hr />
+      <h2 id="-3-adding-types-to-api-routes-">
+        <strong>3. Adding Types to API Routes</strong>
+      </h2>
+      <p>
+        For API routes, use <code>NextApiRequest</code> and
+        <code>NextApiResponse</code>.
+      </p>
+      <pre><code class="lang-ts"><span class="hljs-comment">// pages/api/hello.ts</span>
+<span class="hljs-keyword">import</span> { NextApiRequest, NextApiResponse } <span class="hljs-keyword">from</span> <span class="hljs-string">"next"</span>;
 
 type Data = {
-  message: string;
+  <span class="hljs-attr">message</span>: string;
 };
 
-export default function handler(req: NextApiRequest, res: NextApiResponse&lt;Data&gt;) {
-  res.status(200).json({ message: &#39;Hello World&#39; });
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">handler</span>(<span class="hljs-params">
+  req: NextApiRequest,
+  res: NextApiResponse&lt;Data&gt;
+</span>) </span>{
+  res.status(<span class="hljs-number">200</span>).json({ <span class="hljs-attr">message</span>: <span class="hljs-string">"Hello World"</span> });
 }
 </code></pre>
-<p><strong>Best Practice</strong>:</p>
-<ul>
-<li>Use <code>NextApiRequest</code> for request typing.</li>
-<li>Use <code>NextApiResponse&lt;T&gt;</code> where <code>T</code> is the response data type.</li>
-</ul>
-<hr>
-<h3 id="4-adding-types-to-custom-hooks"><strong>4. Adding Types to Custom Hooks</strong></h3>
-<p>When creating custom hooks, type the parameters and return values.</p>
-<pre><code class="language-ts">// hooks/useUser.ts
-import { useState } from &#39;react&#39;;
+      <p><strong>Best Practice</strong>:</p>
+      <ul>
+        <li>Use <code>NextApiRequest</code> for request typing.</li>
+        <li>
+          Use <code>NextApiResponse&lt;T&gt;</code> where <code>T</code> is the
+          response data type.
+        </li>
+      </ul>
+      <hr />
+      <h2 id="-4-adding-types-to-custom-hooks-">
+        <strong>4. Adding Types to Custom Hooks</strong>
+      </h2>
+      <p>When creating custom hooks, type the parameters and return values.</p>
+      <pre><code class="lang-ts"><span class="hljs-comment">// hooks/useUser.ts</span>
+<span class="hljs-title">import</span> { useState } from <span class="hljs-string">"react"</span>;
 
 type User = {
-  id: number;
-  name: string;
+  <span class="hljs-attribute">id:</span><span class="hljs-string"> number</span>;
+  <span class="hljs-attribute">name</span>: <span class="hljs-built_in">string</span>;
 };
 
-export function useUser() {
-  const [user, setUser] = useState&lt;User | null&gt;(null);
+<span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">useUser</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">const</span> [user, setUser] = useState&lt;User | <span class="hljs-literal">null</span>&gt;(<span class="hljs-literal">null</span>);
 
-  return { user, setUser };
+  <span class="hljs-keyword">return</span> { user, setUser };
 }
 </code></pre>
-<p><strong>Best Practice</strong>:</p>
-<ul>
-<li>Always type the state and return values explicitly.</li>
-<li>Use generics when your hook needs to be reusable with different types.</li>
-</ul>
-<hr>
-<h3 id="5-adding-types-to-components-and-props"><strong>5. Adding Types to Components and Props</strong></h3>
-<p>Typing React components and props is crucial for reusability and maintainability.</p>
-<pre><code class="language-ts">// components/Button.tsx
-import React from &#39;react&#39;;
+      <p><strong>Best Practice</strong>:</p>
+      <ul>
+        <li>Always type the state and return values explicitly.</li>
+        <li>
+          Use generics when your hook needs to be reusable with different types.
+        </li>
+      </ul>
+      <hr />
+      <h2 id="-5-adding-types-to-components-and-props-">
+        <strong>5. Adding Types to Components and Props</strong>
+      </h2>
+      <p>
+        Typing React components and props is crucial for reusability and
+        maintainability.
+      </p>
+      <pre><code class="lang-ts"><span class="hljs-comment">// components/Button.tsx</span>
+<span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
 
 type ButtonProps = {
-  label: string;
-  onClick: () =&gt; void;
+  <span class="hljs-attr">label</span>: string;
+  onClick: <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> <span class="hljs-keyword">void</span>;
   disabled?: boolean;
 };
 
-const Button: React.FC&lt;ButtonProps&gt; = ({ label, onClick, disabled }) =&gt; (
-  &lt;button onClick={onClick} disabled={disabled}&gt;
+<span class="hljs-keyword">const</span> Button: React.FC&lt;ButtonProps&gt; = <span class="hljs-function">(<span class="hljs-params">{ label, onClick, disabled }</span>) =&gt;</span> (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{onClick}</span> <span class="hljs-attr">disabled</span>=<span class="hljs-string">{disabled}</span>&gt;</span>
     {label}
-  &lt;/button&gt;
+  <span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>
 );
 
-export default Button;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Button;
 </code></pre>
-<p><strong>Best Practice</strong>:</p>
-<ul>
-<li>Use <code>React.FC&lt;Props&gt;</code> for functional components (or explicitly type <code>props</code>).</li>
-<li>Define optional props using <code>?</code>.</li>
-</ul>
-<hr>
-<h3 id="6-adding-types-to-context"><strong>6. Adding Types to Context</strong></h3>
-<p>For context, ensure both the context value and provider are properly typed.</p>
-<pre><code class="language-ts">// context/AuthContext.tsx
-import React, { createContext, useContext, useState, ReactNode } from &#39;react&#39;;
+      <p><strong>Best Practice</strong>:</p>
+      <ul>
+        <li>
+          Use <code>React.FC&lt;Props&gt;</code> for functional components (or
+          explicitly type <code>props</code>).
+        </li>
+        <li>Define optional props using <code>?</code>.</li>
+      </ul>
+      <hr />
+      <h2 id="-6-adding-types-to-context-">
+        <strong>6. Adding Types to Context</strong>
+      </h2>
+      <p>
+        For context, ensure both the context value and provider are properly
+        typed.
+      </p>
+      <pre><code class="lang-ts"><span class="hljs-comment">// context/AuthContext.tsx</span>
+<span class="hljs-keyword">import</span> React, { createContext, useContext, useState, ReactNode } from <span class="hljs-string">"react"</span>;
 
 type AuthContextType = {
-  user: string | null;
-  login: (username: string) =&gt; void;
+  <span class="hljs-attribute">user</span>: <span class="hljs-built_in">string</span> | <span class="hljs-literal">null</span>;
+  <span class="hljs-attribute">login</span>: (<span class="hljs-attribute">username</span>: <span class="hljs-built_in">string</span>) =&gt; <span class="hljs-keyword">void</span>;
 };
 
-const AuthContext = createContext&lt;AuthContextType | undefined&gt;(undefined);
+<span class="hljs-keyword">const</span> AuthContext = createContext&lt;AuthContextType | <span class="hljs-literal">undefined</span>&gt;(<span class="hljs-literal">undefined</span>);
 
-export const AuthProvider = ({ children }: { children: ReactNode }) =&gt; {
-  const [user, setUser] = useState&lt;string | null&gt;(null);
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> AuthProvider = ({ children }: { <span class="hljs-attribute">children</span>: ReactNode }) =&gt; {
+  <span class="hljs-keyword">const</span> [user, setUser] = useState&lt;<span class="hljs-built_in">string</span> | <span class="hljs-literal">null</span>&gt;(<span class="hljs-literal">null</span>);
 
-  const login = (username: string) =&gt; {
+  <span class="hljs-keyword">const</span> login = (<span class="hljs-attribute">username</span>: <span class="hljs-built_in">string</span>) =&gt; {
     setUser(username);
   };
 
-  return &lt;AuthContext.Provider value={{ user, login }}&gt;{children}&lt;/AuthContext.Provider&gt;;
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">AuthContext.Provider</span> <span class="hljs-attr">value</span>=<span class="hljs-string">{{</span> <span class="hljs-attr">user</span>, <span class="hljs-attr">login</span> }}&gt;</span>
+      {children}
+    <span class="hljs-tag">&lt;/<span class="hljs-name">AuthContext.Provider</span>&gt;</span>
+  )</span>;
 };
 
-export const useAuth = () =&gt; {
-  const context = useContext(AuthContext);
-  if (!context) throw new Error(&#39;useAuth must be used within an AuthProvider&#39;);
-  return context;
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> useAuth = () =&gt; {
+  <span class="hljs-keyword">const</span> context = useContext(AuthContext);
+  <span class="hljs-keyword">if</span> (!context) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"useAuth must be used within an AuthProvider"</span>);
+  <span class="hljs-keyword">return</span> context;
 };
 </code></pre>
-<p><strong>Best Practice</strong>:</p>
-<ul>
-<li>Type both the context value (<code>AuthContextType</code>) and the children prop.</li>
-<li>Ensure proper typing for <code>useContext</code> to avoid runtime errors.</li>
-</ul>
-<hr>
-<h3 id="7-using-utility-types-for-props"><strong>7. Using Utility Types for Props</strong></h3>
-<p>Use utility types like <code>Pick</code>, <code>Omit</code>, and <code>Partial</code> when working with props.</p>
-<pre><code class="language-ts">type User = {
-  id: number;
+      <p><strong>Best Practice</strong>:</p>
+      <ul>
+        <li>
+          Type both the context value (<code>AuthContextType</code>) and the
+          children prop.
+        </li>
+        <li>
+          Ensure proper typing for <code>useContext</code> to avoid runtime
+          errors.
+        </li>
+      </ul>
+      <hr />
+      <h2 id="-7-using-utility-types-for-props-">
+        <strong>7. Using Utility Types for Props</strong>
+      </h2>
+      <p>
+        Use utility types like <code>Pick</code>, <code>Omit</code>, and
+        <code>Partial</code> when working with props.
+      </p>
+      <pre><code class="lang-ts">type User = {
+  <span class="hljs-attr">id</span>: number;
   name: string;
   email: string;
 };
 
-// Pick only id and name for a component
-type UserCardProps = Pick&lt;User, &#39;id&#39; | &#39;name&#39;&gt;;
+<span class="hljs-comment">// Pick only id and name for a component</span>
+type UserCardProps = Pick&lt;User, <span class="hljs-string">"id"</span> | <span class="hljs-string">"name"</span>&gt;;
 
-const UserCard: React.FC&lt;UserCardProps&gt; = ({ id, name }) =&gt; (
-  &lt;div&gt;
-    &lt;p&gt;ID: {id}&lt;/p&gt;
-    &lt;p&gt;Name: {name}&lt;/p&gt;
-  &lt;/div&gt;
+<span class="hljs-keyword">const</span> UserCard: React.FC&lt;UserCardProps&gt; = <span class="hljs-function">(<span class="hljs-params">{ id, name }</span>) =&gt;</span> (
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>ID: {id}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Name: {name}<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
 );
 </code></pre>
-<hr>
-<h3 id="8-adding-types-for-external-libraries"><strong>8. Adding Types for External Libraries</strong></h3>
-<p>For external libraries without types, you can create custom types using <code>declare</code>.</p>
-<pre><code class="language-ts">// types/custom-lib.d.ts
-declare module &#39;custom-lib&#39; {
-  export function customFunction(param: string): boolean;
+      <hr />
+      <h2 id="-8-adding-types-for-external-libraries-">
+        <strong>8. Adding Types for External Libraries</strong>
+      </h2>
+      <p>
+        For external libraries without types, you can create custom types using
+        <code>declare</code>.
+      </p>
+      <pre><code class="lang-ts">/<span class="hljs-regexp">/ types/custom</span>-<span class="hljs-class"><span class="hljs-keyword">lib</span>.<span class="hljs-title">d</span>.<span class="hljs-title">ts</span></span>
+declare <span class="hljs-class"><span class="hljs-keyword">module</span> "<span class="hljs-title">custom</span>-<span class="hljs-title">lib</span>" {</span>
+  export function customFunction(<span class="hljs-symbol">param:</span> string): boolean;
 }
 </code></pre>
-<hr>
-<h3 id="9-adding-types-to-configuration-files"><strong>9. Adding Types to Configuration Files</strong></h3>
-<p>Type Next.js configuration files like <code>next.config.js</code>.</p>
-<pre><code class="language-ts">// next.config.js
-/** @type {import(&#39;next&#39;).NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-  swcMinify: true,
+      <hr />
+      <h2 id="-9-adding-types-to-configuration-files-">
+        <strong>9. Adding Types to Configuration Files</strong>
+      </h2>
+      <p>Type Next.js configuration files like <code>next.config.js</code>.</p>
+      <pre><code class="lang-ts"><span class="hljs-comment">// next.config.js</span>
+<span class="hljs-comment">/** <span class="hljs-doctag">@type</span> {import('next').NextConfig} */</span>
+<span class="hljs-keyword">const</span> nextConfig = {
+  reactStrictMode: <span class="hljs-keyword">true</span>,
+  swcMinify: <span class="hljs-keyword">true</span>,
 };
 
-module.exports = nextConfig;
+<span class="hljs-keyword">module</span>.<span class="hljs-keyword">exports</span> = nextConfig;
 </code></pre>
-<hr>
-<h3 id="general-best-practices"><strong>General Best Practices</strong></h3>
-<ol>
-<li><p><strong>Enable Strict Mode</strong>:<br>Ensure <code>strict</code> mode is enabled in <code>tsconfig.json</code> to enforce strict type checking.</p>
-<pre><code class="language-json">{
-  &quot;compilerOptions&quot;: {
-    &quot;strict&quot;: true,
-    &quot;noImplicitAny&quot;: true,
-    &quot;strictNullChecks&quot;: true
+      <hr />
+      <h2 id="-general-best-practices-">
+        <strong>General Best Practices</strong>
+      </h2>
+      <ol>
+        <li>
+          <p>
+            <strong>Enable Strict Mode</strong>:<br />Ensure
+            <code>strict</code> mode is enabled in <code>tsconfig.json</code> to
+            enforce strict type checking.
+          </p>
+          <pre><code class="lang-json">{
+  <span class="hljs-attr">"compilerOptions"</span>: {
+    <span class="hljs-attr">"strict"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"noImplicitAny"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"strictNullChecks"</span>: <span class="hljs-literal">true</span>
   }
 }
 </code></pre>
-</li>
-<li><p><strong>Use <code>interface</code> vs <code>type</code> Appropriately</strong>:  </p>
-<ul>
-<li>Use <code>interface</code> for defining object shapes (especially when they might be extended).</li>
-<li>Use <code>type</code> for complex types, unions, or when defining utility types.</li>
-</ul>
-</li>
-<li><p><strong>Leverage Generics</strong>:<br>Use generics to make reusable components, hooks, and functions type-safe.</p>
-</li>
-<li><p><strong>Avoid <code>any</code></strong>:<br>Always try to use specific types. If a type is unknown, prefer <code>unknown</code> over <code>any</code>.</p>
-</li>
-</ol>
-<hr>
-<p>Would you like detailed examples of type manipulation applied to your <strong>Next.js project</strong> (e.g., reusable components, hooks)?</p>
-
-
-
-        </div>
-    </body>
+        </li>
+        <li>
+          <p>
+            <strong
+              >Use <code>interface</code> vs
+              <code>type</code> Appropriately</strong
+            >:
+          </p>
+          <ul>
+            <li>
+              Use <code>interface</code> for defining object shapes (especially
+              when they might be extended).
+            </li>
+            <li>
+              Use <code>type</code> for complex types, unions, or when defining
+              utility types.
+            </li>
+          </ul>
+        </li>
+        <li>
+          <p>
+            <strong>Leverage Generics</strong>:<br />Use generics to make
+            reusable components, hooks, and functions type-safe.
+          </p>
+        </li>
+        <li>
+          <p>
+            <strong>Avoid <code>any</code></strong
+            >:<br />Always try to use specific types. If a type is unknown,
+            prefer <code>unknown</code> over <code>any</code>.
+          </p>
+        </li>
+      </ol>
+      <hr />
+      <p>
+        Would you like detailed examples of type manipulation applied to your
+        <strong>Next.js project</strong> (e.g., reusable components, hooks)?
+      </p>
+    </div>
+  </body>
 </html>
-
