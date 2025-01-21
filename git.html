@@ -1,19 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Advance Git</title>
-        <script src="../css/bootstrap.min.css"></script>
-        <script src="../css/styleguide.css"></script>
-        <script src="../css/style.css"></script>
-        <script src="../js/styleguide.js"></script>
-        <script src="../js/jsguide.js"></script>
-    </head>
-    <body onload="initStyleGuide();">
-        <div id="content">
-            <h1>Advance Git</h1>
+  <head>
+    <meta charset="utf-8" />
+    <title>Advance Git</title>
+    <script src="../css/bootstrap.min.css"></script>
+    <script src="../css/styleguide.css"></script>
+    <script src="../css/style.css"></script>
+    <script src="../js/styleguide.js"></script>
+    <script src="../js/jsguide.js"></script>
+  </head>
+  <body onload="initStyleGuide();">
+    <div id="content">
+      <h1>Advance Git</h1>
 
+      <p>GPG Kye Generate</p>
+      <pre><code class="lang-bash">$ gpg <span class="hljs-comment">--version</span>
 
-        </div>
-    </body>
+$ gpg <span class="hljs-comment">--full-generate-key</span>
+
+press 1 for RSA and RSA (default)
+
+RSA keys may be between 1024 and 4096 bits long.
+What keysize <span class="hljs-keyword">do</span> you want? (<span class="hljs-number">3072</span>) <span class="hljs-number">4096</span>
+
+<span class="hljs-keyword">Key</span> <span class="hljs-keyword">is</span> valid <span class="hljs-keyword">for</span>? (<span class="hljs-number">0</span>) <span class="hljs-number">1</span>y
+
+<span class="hljs-built_in">Real</span> <span class="hljs-keyword">name</span>: WRITE_YOUR_NAME_AS_GITHUB_NAME
+Email address: EMAIL_ADDRESS_AS_GITHUB_EMAIL
+<span class="hljs-keyword">Comment</span>: GitHub <span class="hljs-keyword">Key</span>
+
+<span class="hljs-keyword">Change</span> (N)ame, (C)omment, (E)mail <span class="hljs-keyword">or</span> (O)kay/(Q)uit? O
+
+// <span class="hljs-keyword">after</span> that <span class="hljs-keyword">open</span> a window <span class="hljs-keyword">for</span> passphrase , write a <span class="hljs-keyword">password</span> <span class="hljs-keyword">for</span> leter that nedded <span class="hljs-keyword">before</span> <span class="hljs-keyword">commit</span> , <span class="hljs-keyword">only</span> one <span class="hljs-keyword">time</span> needed . <span class="hljs-keyword">for</span> <span class="hljs-keyword">each</span> repo.
+
+$ gpg <span class="hljs-comment">--list-secret-keys --keyid-format LONG</span>
+
+copy <span class="hljs-keyword">after</span> rsa/ copy_key
+
+$ gpg <span class="hljs-comment">--armor --export D154646PUYGU53568</span>
+
+$ git config <span class="hljs-comment">--list</span>
+
+$ git config <span class="hljs-comment">--global user.name "WRITE_YOUR_NAME_AS_GITHUB_NAME"</span>
+
+$ git config <span class="hljs-comment">--list</span>
+
+$ git config <span class="hljs-comment">--global user.signingkey D154646PUYGU53568</span>
+
+$ git config <span class="hljs-comment">--global commit.gpgsign true</span>
+
+$ git config <span class="hljs-comment">--global tag.gpgsign true</span>
+
+$ <span class="hljs-keyword">where</span> gpg
+
+$ git config <span class="hljs-comment">--global gpg.program "C:\Program Files\Git\usr\bin\gpg.exe"</span>
+
+$ git config <span class="hljs-comment">--global --list</span>
+</code></pre>
+    </div>
+  </body>
 </html>
