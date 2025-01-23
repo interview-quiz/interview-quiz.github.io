@@ -10,19 +10,23 @@ console.log("Angular");
 
 
 
-Here's an outline to develop an Angular application containing the mentioned features:
 
+# Angular Application with Advanced Features
 
----
+This project demonstrates how to implement the following features in an Angular application:
 
-1. Custom Directive
+- Custom Directive
+- Custom Validation (Signup Page)
+- Custom Pipe
+- Role-Based Guard
+- HTTP Interceptor
 
-Create a directive to highlight text:
+## 1. Custom Directive
 
-ng generate directive directives/highlight
+Create a directive to highlight text when hovering.
 
-highlight.directive.ts
-
+### File: `highlight.directive.ts`
+```typescript
 import { Directive, ElementRef, Renderer2, HostListener } from '@angular/core';
 
 @Directive({
@@ -39,22 +43,21 @@ export class HighlightDirective {
     this.renderer.removeStyle(this.el.nativeElement, 'color');
   }
 }
+```
 
-Usage:
-
+### Usage in HTML:
+```html
 <p appHighlight>Hover to highlight this text!</p>
-
+```
 
 ---
 
-2. Custom Validation (Signup Page)
+## 2. Custom Validation (Signup Page)
 
 Implement custom validation for password strength.
 
-ng generate component signup
-
-signup.component.ts
-
+### File: `signup.component.ts`
+```typescript
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 
@@ -82,9 +85,10 @@ export class SignupComponent {
     return !isValid ? { weakPassword: true } : null;
   }
 }
+```
 
-signup.component.html
-
+### File: `signup.component.html`
+```html
 <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
   <label>Username:</label>
   <input formControlName="username" />
@@ -106,18 +110,16 @@ signup.component.html
 
   <button [disabled]="signupForm.invalid">Submit</button>
 </form>
-
+```
 
 ---
 
-3. Custom Pipe
+## 3. Custom Pipe
 
 Format a number as currency.
 
-ng generate pipe pipes/currency-format
-
-currency-format.pipe.ts
-
+### File: `currency-format.pipe.ts`
+```typescript
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
@@ -128,22 +130,21 @@ export class CurrencyFormatPipe implements PipeTransform {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value);
   }
 }
+```
 
-Usage:
-
+### Usage in HTML:
+```html
 <p>{{ 1234 | currencyFormat }}</p>
-
+```
 
 ---
 
-4. Role-Based Guard
+## 4. Role-Based Guard
 
 Protect routes based on user roles.
 
-ng generate guard guards/role
-
-role.guard.ts
-
+### File: `role.guard.ts`
+```typescript
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 
@@ -162,25 +163,24 @@ export class RoleGuard implements CanActivate {
     return false;
   }
 }
+```
 
-app-routing.module.ts
-
+### File: `app-routing.module.ts`
+```typescript
 const routes: Routes = [
   { path: 'admin', component: AdminComponent, canActivate: [RoleGuard] },
   { path: 'unauthorized', component: UnauthorizedComponent },
 ];
-
+```
 
 ---
 
-5. Interceptor
+## 5. HTTP Interceptor
 
 Attach a token to every HTTP request.
 
-ng generate interceptor interceptors/auth
-
-auth.interceptor.ts
-
+### File: `auth.interceptor.ts`
+```typescript
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler } from '@angular/common/http';
 
@@ -196,9 +196,10 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(clonedRequest);
   }
 }
+```
 
-app.module.ts
-
+### File: `app.module.ts`
+```typescript
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 
@@ -208,9 +209,4 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
   ],
 })
 export class AppModule {}
-
-
----
-
-Let me know if you'd like any of these features explained further!
-
+```
