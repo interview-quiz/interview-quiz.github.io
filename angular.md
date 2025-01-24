@@ -210,3 +210,152 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 })
 export class AppModule {}
 ```
+
+
+
+
+# Dynamic Components in Angular
+
+This guide demonstrates how to set dynamic components in Angular, allowing components to be loaded at runtime.
+
+---
+
+## Step 1: Create the Components
+Create the components you want to load dynamically.
+
+**Example:**  
+```typescript
+// Component 1: HelloComponent
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-hello',
+  template: `<h2>Hello Component</h2>`,
+})
+export class HelloComponent {}
+
+// Component 2: GoodbyeComponent
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-goodbye',
+  template: `<h2>Goodbye Component</h2>`,
+})
+export class GoodbyeComponent {}
+```
+
+---
+
+## Step 2: Create a Directive for ViewContainerRef
+Create a directive to act as a placeholder where the dynamic component will be rendered.
+
+**Example:**  
+```typescript
+import { Directive, ViewContainerRef } from '@angular/core';
+
+@Directive({
+  selector: '[appDynamicHost]',
+})
+export class DynamicHostDirective {
+  constructor(public viewContainerRef: ViewContainerRef) {}
+}
+```
+
+---
+
+## Step 3: Create a Dynamic Loader Component
+This component will load the dynamic components.
+
+**Example:**  
+```typescript
+import { Component, ComponentFactoryResolver, Input, OnInit, ViewChild } from '@angular/core';
+import { DynamicHostDirective } from './dynamic-host.directive';
+import { HelloComponent } from './hello.component';
+import { GoodbyeComponent } from './goodbye.component';
+
+@Component({
+  selector: 'app-dynamic-loader',
+  template: `<ng-template appDynamicHost></ng-template>`,
+})
+export class DynamicLoaderComponent implements OnInit {
+  @Input() componentType: string = '';
+
+  @ViewChild(DynamicHostDirective, { static: true })
+  dynamicHost!: DynamicHostDirective;
+
+  constructor(private resolver: ComponentFactoryResolver) {}
+
+  ngOnInit() {
+    this.loadComponent();
+  }
+
+  loadComponent() {
+    const viewContainerRef = this.dynamicHost.viewContainerRef;
+    viewContainerRef.clear();
+
+    let componentFactory;
+
+    // Map component types dynamically
+    if (this.componentType === 'hello') {
+      componentFactory = this.resolver.resolveComponentFactory(HelloComponent);
+    } else if (this.componentType === 'goodbye') {
+      componentFactory = this.resolver.resolveComponentFactory(GoodbyeComponent);
+    }
+
+    if (componentFactory) {
+      viewContainerRef.createComponent(componentFactory);
+    }
+  }
+}
+```
+
+---
+
+## Step 4: Declare Everything in AppModule
+Register all the components, directives, and dependencies in your module.
+
+**Example:**  
+```typescript
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
+import { HelloComponent } from './hello.component';
+import { GoodbyeComponent } from './goodbye.component';
+import { DynamicLoaderComponent } from './dynamic-loader.component';
+import { DynamicHostDirective } from './dynamic-host.directive';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    HelloComponent,
+    GoodbyeComponent,
+    DynamicLoaderComponent,
+    DynamicHostDirective,
+  ],
+  imports: [BrowserModule],
+  providers: [],
+  bootstrap: [AppComponent],
+})
+export class AppModule {}
+```
+
+---
+
+## Step 5: Use the Dynamic Loader
+Pass the dynamic component type to the loader.
+
+**Example (in `app.component.html`):**
+```html
+<app-dynamic-loader [componentType]="'hello'"></app-dynamic-loader>
+<app-dynamic-loader [componentType]="'goodbye'"></app-dynamic-loader>
+```
+
+---
+
+## Output:
+- "Hello Component" will render dynamically where the first loader is placed.
+- "Goodbye Component" will render dynamically in the second loader.
+
+---
+
+This approach allows you to load components dynamically based on the context or input provided.
