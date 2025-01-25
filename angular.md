@@ -358,4 +358,123 @@ Pass the dynamic component type to the loader.
 
 ---
 
-## How to create dynamic components ?
+# How to create dynamic components ?
+# Dynamic Components in Angular
+
+This guide demonstrates how to create and load dynamic components in Angular. Dynamic components are useful for scenarios like modals, tooltips, or dashboards where components need to be instantiated programmatically at runtime.
+
+---
+
+## Step 1: Set Up Your Components
+
+Prepare the components you want to load dynamically. For example:
+
+```typescript
+// src/app/components/dynamic-child.component.ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-dynamic-child',
+  template: `<p>Dynamic Child Component Loaded!</p>`,
+})
+export class DynamicChildComponent {}
+```
+
+---
+
+## Step 2: Create a Placeholder for Dynamic Components
+
+Use a `ViewContainerRef` to define a placeholder for dynamic components.
+
+```html
+<!-- src/app/app.component.html -->
+<div>
+  <h2>Dynamic Component Example</h2>
+  <ng-container #dynamicContainer></ng-container>
+</div>
+```
+
+---
+
+## Step 3: Load the Dynamic Component
+
+In the parent component, use `ViewChild` and `ComponentFactoryResolver` to load the component.
+
+```typescript
+// src/app/app.component.ts
+import { Component, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
+import { DynamicChildComponent } from './components/dynamic-child.component';
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+})
+export class AppComponent {
+  @ViewChild('dynamicContainer', { read: ViewContainerRef, static: true })
+  container!: ViewContainerRef;
+
+  constructor(private resolver: ComponentFactoryResolver) {}
+
+  loadComponent() {
+    // Clear previous dynamic components if needed
+    this.container.clear();
+
+    // Create the component factory
+    const factory = this.resolver.resolveComponentFactory(DynamicChildComponent);
+
+    // Add the component to the container
+    this.container.createComponent(factory);
+  }
+}
+```
+
+---
+
+## Step 4: Add a Button to Trigger the Dynamic Component
+
+Add a button to load the component dynamically.
+
+```html
+<!-- src/app/app.component.html -->
+<button (click)="loadComponent()">Load Dynamic Component</button>
+```
+
+---
+
+## Step 5: Register the Component in `NgModule`
+
+Ensure the dynamic component is added to the `entryComponents` array (if you're using Angular 8 or below).
+
+```typescript
+// src/app/app.module.ts
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from './app.component';
+import { DynamicChildComponent } from './components/dynamic-child.component';
+
+@NgModule({
+  declarations: [AppComponent, DynamicChildComponent],
+  imports: [BrowserModule],
+  bootstrap: [AppComponent],
+  entryComponents: [DynamicChildComponent], // Not needed in Angular 9+
+})
+export class AppModule {}
+```
+
+---
+
+## Step 6: Run the Application
+
+When you click the "Load Dynamic Component" button, the `DynamicChildComponent` will be instantiated and displayed.
+
+---
+
+## Notes:
+
+- **Angular 9+ (Ivy)**: You no longer need to specify `entryComponents`. Angular automatically handles this for you.
+- **Use Cases**: Dynamic components are ideal for scenarios like modals, tooltips, or dynamically loaded dashboards.
+- **Best Practices**: Consider using Angular's **Component Portal** from the CDK for more complex scenarios, as it offers additional flexibility.
+
+---
+
+
