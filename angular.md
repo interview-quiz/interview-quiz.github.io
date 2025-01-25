@@ -358,4 +358,4 @@ Pass the dynamic component type to the loader.
 
 ---
 
-This approach allows you to load components dynamically based on the context or input provided.
+## How to create dynamic components ?
