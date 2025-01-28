@@ -1,4 +1,118 @@
 # Advance JavaScript
+
+
+## Asynchronous Programming
+- Promises and chaining
+- async/await
+- Event loop and microtasks
+- Managing multiple async tasks with Promise.all, Promise.race, etc.
+
+## JavaScript Design Patterns
+- Module pattern
+- Singleton
+- Factory pattern
+- Observer pattern
+- Decorator pattern
+
+
+## Performance Optimization
+- Debouncing and throttling
+- Memory management
+- Understanding garbage collection
+- Optimizing DOM manipulation
+- Web Workers
+- Deep Dive into Prototypes and Inheritance
+
+## Prototype chain
+- __proto__ vs prototype
+- Object creation with Object.create()
+- Classical vs prototypal inheritance
+
+## Closures and Scopes
+- Lexical scoping
+- Closure examples and use cases
+- Memory implications of closures
+
+## Advanced Functions
+- Currying
+- Higher-order functions
+- Partial application
+- Function composition
+
+## Metaprogramming
+- Understanding Proxy and Reflect
+- Dynamic object manipulation
+- Symbols and their use in object properties
+
+## ES6+ Features
+- Destructuring, spread/rest operators
+- Template literals and tagged templates
+- Iterators and generators
+- Sets and Maps
+- WeakSet and WeakMap
+
+## Module Systems
+- ES6 Modules (import/export)
+- CommonJS vs ES6 Modules
+- Dynamic imports (import())
+- Module bundlers (Webpack, Rollup, etc.)
+# Advanced JavaScript Topics
+
+## Error Handling
+- Custom error types
+- Error boundaries in JavaScript
+- Handling asynchronous errors
+- Global error handling
+
+## Event Handling
+- Event delegation
+- Custom events with EventTarget or CustomEvent
+- Bubbling, capturing, and stopping propagation
+
+## JavaScript Engines
+- How V8 engine works
+- Just-in-time (JIT) compilation
+- Understanding call stack and heap
+
+## Advanced Object Handling
+- Object freezing and sealing
+- Immutability patterns
+- Object descriptors (writable, enumerable, etc.)
+- Object.defineProperty and Object.defineProperties
+
+## Internationalization (i18n)
+- Using Intl API for formatting dates, numbers, and currencies
+- Pluralization and locales
+
+## Typed JavaScript
+- Type checking with TypeScript or JSDoc
+- Understanding strict mode ("use strict")
+
+## Reactive Programming
+- Using RxJS for reactive programming
+- Observables and operators
+
+## Unit Testing and Debugging
+- Writing unit tests with Jest or Mocha
+- Debugging with Chrome DevTools
+- Code coverage tools
+
+## Server-Side JavaScript
+- Introduction to Node.js
+- File system manipulation
+- Streams and buffers
+
+## Building Custom Libraries
+- Publishing libraries to npm
+- Writing reusable components
+- Bundling with Rollup or Webpack
+
+## Patterns for Large Applications
+- State management
+- Modular architecture
+- Dependency injection
+
+
 # Advanced JavaScript Topics: Asynchronous Programming
 
 This guide covers the following advanced JavaScript topics:
