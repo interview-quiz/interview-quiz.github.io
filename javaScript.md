@@ -216,5 +216,343 @@ parallelTasks();
 - Use **Promises** for simpler workflows.
 - Use **async/await** for cleaner, more readable asynchronous code.
 - Choose between **sequential**, **concurrent**, or **parallel** execution based on the task requirements.
+# Advanced JavaScript Concepts
 
-Let me know if you need further clarifications or more examples!
+## 1. JavaScript Prototypes and Inheritance
+
+### Prototype Chain
+- Prototype is an object from which other objects inherit properties.
+- Every object in JavaScript has an internal link to its **prototype** object, accessible via `__proto__`.
+- When you access a property or method on an object, JavaScript first checks the object itself. If it doesn’t find the property, it looks at the object’s prototype, and so on up the chain until it finds the property or reaches the end of the chain (where the prototype is null).
+- If a property isn’t found in an object, JavaScript looks up the prototype chain until it finds the property or reaches the end (where the prototype is `null`).
+
+#### Example:
+```javascript
+const obj = { name: 'John' };
+
+console.log(obj.toString()); // Found in `Object.prototype`
+console.log(obj.__proto__ === Object.prototype); // true
+console.log(Object.prototype.__proto__); // null
+```
+
+---
+
+### `__proto__` vs `prototype`
+- **`__proto__`**: Refers to the actual prototype of an object.
+- **`prototype`**: A property of functions, used when creating objects via constructors or `class`.
+
+#### Example:
+```javascript
+function Person(name) {
+  this.name = name;
+}
+
+Person.prototype.greet = function () {
+  console.log(`Hello, my name is ${this.name}`);
+};
+
+const john = new Person('John');
+console.log(john.__proto__ === Person.prototype); // true
+john.greet(); // Hello, my name is John
+```
+
+---
+
+### Object Creation with `Object.create()`
+- Creates a new object with a specified prototype object.
+
+#### Example:
+```javascript
+const parent = { greet() { console.log('Hello from parent'); } };
+
+const child = Object.create(parent);
+child.name = 'Child';
+console.log(child.name); // 'Child'
+
+
+child.greet(); // 'Hello from parent'
+console.log(Object.getPrototypeOf(child) === parent); // true
+
+```
+
+---
+
+### Classical vs Prototypal Inheritance
+- **Classical Inheritance**: Uses class hierarchies (e.g., Java, C++).
+- **Prototypal Inheritance**: Objects inherit directly from other objects.
+
+#### Example of Classical Inheritance:
+```javascript
+class Animal {
+  constructor(name) {
+    this.name = name;
+  }
+
+  speak() {
+    console.log(`${this.name} makes a noise.`);
+  }
+}
+
+class Dog extends Animal {
+  speak() {
+    console.log(`${this.name} barks.`);
+  }
+}
+
+const dog = new Dog('Rex');
+dog.speak(); // Rex barks.
+```
+
+#### Example of Prototypal Inheritance:
+```javascript
+const animal = {
+  speak() {
+    console.log(`${this.name} makes a noise.`);
+  },
+};
+
+const dog = Object.create(animal);
+dog.name = 'Rex';
+dog.speak(); // Rex makes a noise.
+```
+
+##  Object.prototype and the Global Prototype
+- Object.prototype is the top of the prototype chain for all objects.
+- Built-in objects (e.g., Array, Function) have their own prototype chains, but they eventually inherit from Object.prototype.
+
+```javascript
+const arr = [];
+console.log(arr.__proto__ === Array.prototype); // true
+console.log(Array.prototype.__proto__ === Object.prototype); // true
+
+
+
+```
+##  Extending Prototypes
+You can add methods to built-in prototypes, but it's generally discouraged because it can lead to conflicts.
+
+```javascript
+Array.prototype.sum = function () {
+  return this.reduce((acc, val) => acc + val, 0);
+};
+
+console.log([1, 2, 3].sum()); // 6
+
+
+```
+##   Shadowing Properties in the Prototype Chain
+- If an object has its own property with the same name as a property in its prototype, it "shadows" the prototype property.
+
+```javascript
+const parent = { name: 'Parent' };
+const child = Object.create(parent);
+child.name = 'Child';
+
+console.log(child.name); // 'Child' (shadowed)
+console.log(child.__proto__.name); // 'Parent'
+
+```
+
+##  How new Works
+- When you use the new keyword:
+
+- A new object is created.
+- The object's __proto__ is set to the constructor's prototype.
+- The constructor function is called with the new object as this.
+- If the constructor explicitly returns an object, that object is returned; otherwise, the new object is returned.
+
+```javascript
+function Person(name) {
+  this.name = name;
+}
+
+const john = new Person('John');
+console.log(john.__proto__ === Person.prototype); // true
+
+
+```
+
+## Prototype-Based Polymorphism
+- Polymorphism allows objects to override methods in the prototype chain.
+
+```javascript
+function Animal() {}
+Animal.prototype.speak = function () {
+  console.log('Animal speaks');
+};
+
+function Dog() {}
+Dog.prototype = Object.create(Animal.prototype);
+Dog.prototype.speak = function () {
+  console.log('Dog barks');
+};
+
+const dog = new Dog();
+dog.speak(); // Dog barks
+```
+
+
+---
+
+
+## 2. Closures and Scopes
+
+### Closures
+- A closure is a combination of a function and its lexical environment.
+- Functions retain access to their outer scope even after the outer function has returned.
+
+#### Example:
+```javascript
+function outer() {
+  const outerVar = 'I’m from outer';
+
+  function inner() {
+    console.log(outerVar);
+  }
+
+  return inner;
+}
+
+const innerFn = outer();
+innerFn(); // "I’m from outer"
+```
+
+---
+
+### Lexical Scoping
+- Variables are resolved based on their location in the source code, not where they are called.
+
+#### Example:
+```javascript
+function outer() {
+  const outerVar = 'I’m from outer';
+
+  function inner() {
+    console.log(outerVar);
+  }
+
+  return inner;
+}
+
+const innerFn = outer();
+innerFn();
+```
+
+---
+
+### Use Cases for Closures
+#### 1. Preserving State
+```javascript
+function counter() {
+  let count = 0;
+
+  return {
+    increment() {
+      count++;
+      return count;
+    },
+    decrement() {
+      count--;
+      return count;
+    },
+  };
+}
+
+const myCounter = counter();
+console.log(myCounter.increment()); // 1
+console.log(myCounter.decrement()); // 0
+```
+
+#### 2. Partial Application
+```javascript
+function multiply(factor) {
+  return function (num) {
+    return num * factor;
+  };
+}
+
+const double = multiply(2);
+console.log(double(5)); // 10
+```
+
+#### 3. Event Listeners
+```javascript
+function attachListener() {
+  const message = 'Button clicked!';
+
+  document.querySelector('button').addEventListener('click', () => {
+    console.log(message);
+  });
+}
+attachListener();
+```
+
+---
+
+## 3. Advanced Functions
+
+### Currying
+- Transforming a function with multiple arguments into a sequence of functions, each accepting a single argument.
+
+#### Example:
+```javascript
+function add(a) {
+  return function (b) {
+    return a + b;
+  };
+}
+
+const add5 = add(5);
+console.log(add5(10)); // 15
+console.log(add(3)(4)); // 7
+```
+
+---
+
+### Higher-Order Functions
+- Functions that take other functions as arguments or return them as results.
+
+#### Example:
+```javascript
+function greet(name, formatter) {
+  console.log(formatter(name));
+}
+
+function politeFormatter(name) {
+  return `Hello, ${name}`;
+}
+
+greet('John', politeFormatter); // Hello, John
+```
+
+---
+
+### Partial Application
+- Creating a new function by fixing some arguments of an existing function.
+
+#### Example:
+```javascript
+function add(a, b) {
+  return a + b;
+}
+
+const add5 = add.bind(null, 5);
+console.log(add5(10)); // 15
+```
+
+---
+
+### Function Composition
+- Combining multiple functions to produce a new function.
+
+#### Example:
+```javascript
+const multiplyBy2 = (x) => x * 2;
+const subtract3 = (x) => x - 3;
+
+const compose = (f, g) => (x) => f(g(x));
+const multiplyThenSubtract = compose(subtract3, multiplyBy2);
+
+console.log(multiplyThenSubtract(5)); // (5 * 2) - 3 = 7
+
+
