@@ -477,4 +477,526 @@ When you click the "Load Dynamic Component" button, the `DynamicChildComponent` 
 
 ---
 
+# Advanced Angular Routing Guide
+
+## 1. Dynamic and Nested Routes
+
+### **Dynamic Routes**
+Dynamic routes allow passing parameters to the URL (e.g., `/product/123`).
+
+```typescript
+const routes: Routes = [
+  { path: 'product/:id', component: ProductComponent },
+];
+
+@Component({
+  template: `
+    <h2>Product Details</h2>
+    <p>Product ID: {{ productId }}</p>
+  `
+})
+export class ProductComponent implements OnInit {
+  productId!: string;
+
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    this.productId = this.route.snapshot.paramMap.get('id')!;
+  }
+}
+```
+
+### **Nested Routes**
+Nested routes allow rendering child components inside a parent using a `router-outlet`.
+
+```typescript
+const routes: Routes = [
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    children: [
+      { path: 'profile', component: ProfileComponent },
+      { path: 'settings', component: SettingsComponent },
+    ]
+  }
+];
+```
+
+Parent `dashboard.component.html`:
+```html
+<h1>Dashboard</h1>
+<nav>
+  <a routerLink="profile">Profile</a>
+  <a routerLink="settings">Settings</a>
+</nav>
+<router-outlet></router-outlet>
+```
+
+---
+
+## 2. Route Guards
+
+### **CanActivate (Prevent Unauthenticated Access)**
+
+```typescript
+@Injectable({ providedIn: 'root' })
+export class AuthGuard implements CanActivate {
+  canActivate(): boolean {
+    const isAuthenticated = !!localStorage.getItem('token');
+    return isAuthenticated;
+  }
+}
+
+const routes: Routes = [
+  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
+];
+```
+
+### **CanDeactivate (Prevent Unsaved Changes from Being Lost)**
+
+```typescript
+@Injectable({ providedIn: 'root' })
+export class UnsavedChangesGuard implements CanDeactivate<unknown> {
+  canDeactivate(component: any): boolean {
+    return confirm('Do you want to discard unsaved changes?');
+  }
+}
+
+const routes: Routes = [
+  { path: 'edit', component: EditComponent, canDeactivate: [UnsavedChangesGuard] },
+];
+```
+
+### **Resolve (Pre-Fetch Data)**
+
+```typescript
+@Injectable({ providedIn: 'root' })
+export class DataResolver implements Resolve<any> {
+  resolve(): Observable<any> {
+    return of({ name: 'Angular', version: 16 }).pipe(delay(1000));
+  }
+}
+
+const routes: Routes = [
+  { path: 'info', component: InfoComponent, resolve: { data: DataResolver } },
+];
+```
+
+---
+
+## 3. Lazy Loading
+
+Lazy loading improves performance by loading modules only when needed.
+
+**Main App Routing Module:**
+```typescript
+const routes: Routes = [
+  { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
+];
+```
+
+**User Module Routing:**
+```typescript
+const routes: Routes = [
+  { path: '', component: UserListComponent },
+];
+```
+
+---
+
+## 4. Preloading Strategies
+
+### **Custom Preloading**
+
+```typescript
+@Injectable({ providedIn: 'root' })
+export class CustomPreloading implements PreloadingStrategy {
+  preload(route: Route, load: () => Observable<any>): Observable<any> {
+    return route.data?.['preload'] ? load() : of(null);
+  }
+}
+
+const routes: Routes = [
+  { path: 'feature', loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule), data: { preload: true } },
+];
+```
+
+---
+
+## 5. Router Events & Navigation Observables
+
+Monitor navigation events:
+```typescript
+constructor(private router: Router) {
+  this.router.events.subscribe(event => {
+    if (event instanceof NavigationStart) {
+      console.log('Navigation started');
+    }
+    if (event instanceof NavigationEnd) {
+      console.log('Navigation ended');
+    }
+  });
+}
+```
+
+---
+
+## 6. Custom Route Matchers
+
+Use custom logic to match routes.
+
+```typescript
+const customMatcher: UrlMatcher = (segments) => {
+  return segments.length === 1 && segments[0].path === 'custom' ? { consumed: segments } : null;
+};
+
+const routes: Routes = [
+  { matcher: customMatcher, component: CustomComponent },
+];
+```
+
+---
+
+## 7. Dynamic Component Loading
+
+Dynamically load components based on route data.
+
+```typescript
+const routes: Routes = [
+  { path: 'dynamic', component: PlaceholderComponent, data: { component: DynamicComponent } },
+];
+
+@Component({
+  template: `<ng-container #container></ng-container>`
+})
+export class PlaceholderComponent implements OnInit {
+  @ViewChild('container', { read: ViewContainerRef }) container!: ViewContainerRef;
+
+  constructor(private route: ActivatedRoute, private resolver: ComponentFactoryResolver) {}
+
+  ngOnInit(): void {
+    const component = this.route.snapshot.data['component'];
+    const factory = this.resolver.resolveComponentFactory(component);
+    this.container.createComponent(factory);
+  }
+}
+```
+
+---
+
+## 8. Router Animations
+
+Add animations when navigating between routes.
+
+```typescript
+import { trigger, transition, style, animate } from '@angular/animations';
+
+@Component({
+  selector: 'app-root',
+  template: `<router-outlet></router-outlet>`,
+  animations: [
+    trigger('routeAnimations', [
+      transition('* => *', [
+        style({ opacity: 0 }),
+        animate('300ms', style({ opacity: 1 }))
+      ])
+    ])
+  ]
+})
+export class AppComponent {}
+```
+
+---
+
+## 9. Hash-based vs Path-based Routing
+
+Switch between `#`-based and clean URLs.
+
+- **Hash-based:** Add `useHash: true` in `RouterModule.forRoot()`:
+  ```typescript
+  RouterModule.forRoot(routes, { useHash: true })
+  ```
+
+- **Path-based:** Default behavior, but requires server configuration for deep linking.
+
+---
+
+## 10. Multi-Outlets & Named Outlets
+
+### **Named Outlets**
+You can load multiple components in different outlets.
+
+```typescript
+const routes: Routes = [
+  { path: 'main', component: MainComponent, outlet: 'primary' },
+  { path: 'sidebar', component: SidebarComponent, outlet: 'sidebar' },
+];
+
+<router-outlet name="primary"></router-outlet>
+<router-outlet name="sidebar"></router-outlet>
+```
+
+---
+
+
+# Advanced Angular Routing Guide
+
+## 1. Dynamic and Nested Routes
+
+### **Dynamic Routes**
+Dynamic routes allow passing parameters to the URL (e.g., `/product/123`).
+
+```typescript
+const routes: Routes = [
+  { path: 'product/:id', component: ProductComponent },
+];
+
+@Component({
+  template: `
+    <h2>Product Details</h2>
+    <p>Product ID: {{ productId }}</p>
+  `
+})
+export class ProductComponent implements OnInit {
+  productId!: string;
+
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    this.productId = this.route.snapshot.paramMap.get('id')!;
+  }
+}
+```
+
+### **Nested Routes**
+Nested routes allow rendering child components inside a parent using a `router-outlet`.
+
+```typescript
+const routes: Routes = [
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    children: [
+      { path: 'profile', component: ProfileComponent },
+      { path: 'settings', component: SettingsComponent },
+    ]
+  }
+];
+```
+
+Parent `dashboard.component.html`:
+```html
+<h1>Dashboard</h1>
+<nav>
+  <a routerLink="profile">Profile</a>
+  <a routerLink="settings">Settings</a>
+</nav>
+<router-outlet></router-outlet>
+```
+
+---
+
+## 2. Route Guards
+
+### **CanActivate (Prevent Unauthenticated Access)**
+
+```typescript
+@Injectable({ providedIn: 'root' })
+export class AuthGuard implements CanActivate {
+  canActivate(): boolean {
+    const isAuthenticated = !!localStorage.getItem('token');
+    return isAuthenticated;
+  }
+}
+
+const routes: Routes = [
+  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
+];
+```
+
+### **CanDeactivate (Prevent Unsaved Changes from Being Lost)**
+
+```typescript
+@Injectable({ providedIn: 'root' })
+export class UnsavedChangesGuard implements CanDeactivate<unknown> {
+  canDeactivate(component: any): boolean {
+    return confirm('Do you want to discard unsaved changes?');
+  }
+}
+
+const routes: Routes = [
+  { path: 'edit', component: EditComponent, canDeactivate: [UnsavedChangesGuard] },
+];
+```
+
+### **Resolve (Pre-Fetch Data)**
+
+```typescript
+@Injectable({ providedIn: 'root' })
+export class DataResolver implements Resolve<any> {
+  resolve(): Observable<any> {
+    return of({ name: 'Angular', version: 16 }).pipe(delay(1000));
+  }
+}
+
+const routes: Routes = [
+  { path: 'info', component: InfoComponent, resolve: { data: DataResolver } },
+];
+```
+
+---
+
+## 3. Lazy Loading
+
+Lazy loading improves performance by loading modules only when needed.
+
+**Main App Routing Module:**
+```typescript
+const routes: Routes = [
+  { path: 'user', loadChildren: () => import('./user/user.module').then(m => m.UserModule) },
+];
+```
+
+**User Module Routing:**
+```typescript
+const routes: Routes = [
+  { path: '', component: UserListComponent },
+];
+```
+
+---
+
+## 4. Preloading Strategies
+
+### **Custom Preloading**
+
+```typescript
+@Injectable({ providedIn: 'root' })
+export class CustomPreloading implements PreloadingStrategy {
+  preload(route: Route, load: () => Observable<any>): Observable<any> {
+    return route.data?.['preload'] ? load() : of(null);
+  }
+}
+
+const routes: Routes = [
+  { path: 'feature', loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule), data: { preload: true } },
+];
+```
+
+---
+
+## 5. Router Events & Navigation Observables
+
+Monitor navigation events:
+```typescript
+constructor(private router: Router) {
+  this.router.events.subscribe(event => {
+    if (event instanceof NavigationStart) {
+      console.log('Navigation started');
+    }
+    if (event instanceof NavigationEnd) {
+      console.log('Navigation ended');
+    }
+  });
+}
+```
+
+---
+
+## 6. Custom Route Matchers
+
+Use custom logic to match routes.
+
+```typescript
+const customMatcher: UrlMatcher = (segments) => {
+  return segments.length === 1 && segments[0].path === 'custom' ? { consumed: segments } : null;
+};
+
+const routes: Routes = [
+  { matcher: customMatcher, component: CustomComponent },
+];
+```
+
+---
+
+## 7. Dynamic Component Loading
+
+Dynamically load components based on route data.
+
+```typescript
+const routes: Routes = [
+  { path: 'dynamic', component: PlaceholderComponent, data: { component: DynamicComponent } },
+];
+
+@Component({
+  template: `<ng-container #container></ng-container>`
+})
+export class PlaceholderComponent implements OnInit {
+  @ViewChild('container', { read: ViewContainerRef }) container!: ViewContainerRef;
+
+  constructor(private route: ActivatedRoute, private resolver: ComponentFactoryResolver) {}
+
+  ngOnInit(): void {
+    const component = this.route.snapshot.data['component'];
+    const factory = this.resolver.resolveComponentFactory(component);
+    this.container.createComponent(factory);
+  }
+}
+```
+
+---
+
+## 8. Router Animations
+
+Add animations when navigating between routes.
+
+```typescript
+import { trigger, transition, style, animate } from '@angular/animations';
+
+@Component({
+  selector: 'app-root',
+  template: `<router-outlet></router-outlet>`,
+  animations: [
+    trigger('routeAnimations', [
+      transition('* => *', [
+        style({ opacity: 0 }),
+        animate('300ms', style({ opacity: 1 }))
+      ])
+    ])
+  ]
+})
+export class AppComponent {}
+```
+
+---
+
+## 9. Hash-based vs Path-based Routing
+
+Switch between `#`-based and clean URLs.
+
+- **Hash-based:** Add `useHash: true` in `RouterModule.forRoot()`:
+  ```typescript
+  RouterModule.forRoot(routes, { useHash: true })
+  ```
+
+- **Path-based:** Default behavior, but requires server configuration for deep linking.
+
+---
+
+## 10. Multi-Outlets & Named Outlets
+
+### **Named Outlets**
+You can load multiple components in different outlets.
+
+```typescript
+const routes: Routes = [
+  { path: 'main', component: MainComponent, outlet: 'primary' },
+  { path: 'sidebar', component: SidebarComponent, outlet: 'sidebar' },
+];
+
+<router-outlet name="primary"></router-outlet>
+<router-outlet name="sidebar"></router-outlet>
+```
+
+---
 
