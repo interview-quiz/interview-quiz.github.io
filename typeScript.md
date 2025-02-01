@@ -1,4 +1,5 @@
 # TypeScript.md
+- Typescript-5-8-beta:  https://devblogs.microsoft.com/typescript/announcing-typescript-5-8-beta/
 
 ## **Benefits of TypeScript**
 
