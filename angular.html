@@ -35,13 +35,13 @@ import { DynamicUsingFactoryResolverComponent } from "./app/dynamic-using-factor
   template: `
     <h1>Hello from {{ name }}!</h1>
 
-    <button (click)="loadDynamicComponent()">
-      Load Component Using ComponentFactoryResolver</button
-    ><br />
-    <ng-template #dynamicContainer></ng-template><br />
+    &lt;button (click)="loadDynamicComponent()"&gt;
+      Load Component Using ComponentFactoryResolver &lt;button
+    &gt;&lt;br&gt;
+      &lt;ng-template #dynamicContainer&gt; &lt;ng-template&gt;  <br />
 
-    <button (click)="loadDynamicComponent2()">Load Component 2</button>
-    <ng-template #dynamicContainer2></ng-template>
+   &lt:button (click)="loadDynamicComponent2()"&gt;Load Component 2   &lt;button&gt;
+      &lt;ng-template #dynamicContainer2&gt;&lt;ng-template&gt;
   `,
 })
 export class App {
