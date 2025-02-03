@@ -669,7 +669,7 @@ const multiplyThenSubtract = compose(subtract3, multiplyBy2);
 
 console.log(multiplyThenSubtract(5)); // (5 * 2) - 3 = 7
 
-
+```
 
 
 
