@@ -670,3 +670,231 @@ const multiplyThenSubtract = compose(subtract3, multiplyBy2);
 console.log(multiplyThenSubtract(5)); // (5 * 2) - 3 = 7
 
 
+
+
+
+# JavaScript Common Patterns
+
+## **1. Module Pattern**
+Encapsulates private variables and exposes only necessary methods.
+```javascript
+const Module = (function () {
+  let privateVar = "I am private";
+
+  function privateMethod() {
+    console.log(privateVar);
+  }
+
+  return {
+    publicMethod: function () {
+      privateMethod();
+    },
+  };
+})();
+
+Module.publicMethod(); // "I am private"
+```
+✅ Use for: Encapsulation, maintaining private state.
+
+---
+
+## **2. Factory Pattern**
+Returns objects with shared properties or methods.
+```javascript
+function createPerson(name, age) {
+  return {
+    name,
+    age,
+    greet() {
+      console.log(`Hello, my name is ${this.name}`);
+    },
+  };
+}
+
+const person1 = createPerson("Alice", 25);
+person1.greet(); // "Hello, my name is Alice"
+```
+✅ Use for: Creating multiple instances with shared methods.
+
+---
+
+## **3. Singleton Pattern**
+Ensures only one instance of an object is created.
+```javascript
+const Singleton = (function () {
+  let instance;
+
+  function createInstance() {
+    return { data: "I am the only instance" };
+  }
+
+  return {
+    getInstance: function () {
+      if (!instance) {
+        instance = createInstance();
+      }
+      return instance;
+    },
+  };
+})();
+
+const obj1 = Singleton.getInstance();
+const obj2 = Singleton.getInstance();
+console.log(obj1 === obj2); // true
+```
+✅ Use for: Shared configurations, caching.
+
+---
+
+## **4. Observer Pattern**
+Objects (subscribers) react to state changes of another object (subject).
+```javascript
+class Subject {
+  constructor() {
+    this.observers = [];
+  }
+
+  subscribe(observer) {
+    this.observers.push(observer);
+  }
+
+  unsubscribe(observer) {
+    this.observers = this.observers.filter((obs) => obs !== observer);
+  }
+
+  notify(data) {
+    this.observers.forEach((observer) => observer(data));
+  }
+}
+
+const subject = new Subject();
+
+const observer1 = (data) => console.log(`Observer 1: ${data}`);
+const observer2 = (data) => console.log(`Observer 2: ${data}`);
+
+subject.subscribe(observer1);
+subject.subscribe(observer2);
+subject.notify("Event Triggered!");
+```
+✅ Use for: Event-driven architectures, real-time updates.
+
+---
+
+## **5. Prototype Pattern**
+Uses prototype inheritance to optimize object creation.
+```javascript
+function Person(name) {
+  this.name = name;
+}
+
+Person.prototype.greet = function () {
+  console.log(`Hello, my name is ${this.name}`);
+};
+
+const person1 = new Person("Bob");
+person1.greet(); // "Hello, my name is Bob"
+```
+✅ Use for: Performance optimization via shared methods.
+
+---
+
+## **6. Revealing Module Pattern**
+A more readable version of the module pattern.
+```javascript
+const Counter = (function () {
+  let count = 0;
+
+  function increment() {
+    count++;
+  }
+
+  function getCount() {
+    return count;
+  }
+
+  return {
+    increment,
+    getCount,
+  };
+})();
+
+Counter.increment();
+console.log(Counter.getCount()); // 1
+```
+✅ Use for: Encapsulation with clear public/private method distinction.
+
+---
+
+## **7. Mediator Pattern**
+Manages communication between multiple objects without them interacting directly.
+```javascript
+class Chatroom {
+  constructor() {
+    this.users = {};
+  }
+
+  register(user) {
+    this.users[user.name] = user;
+    user.chatroom = this;
+  }
+
+  send(message, from, to) {
+    if (to) {
+      this.users[to].receive(message, from);
+    } else {
+      Object.keys(this.users).forEach((key) => {
+        if (key !== from) this.users[key].receive(message, from);
+      });
+    }
+  }
+}
+
+class User {
+  constructor(name) {
+    this.name = name;
+  }
+
+  send(message, to) {
+    this.chatroom.send(message, this.name, to);
+  }
+
+  receive(message, from) {
+    console.log(`${from} to ${this.name}: ${message}`);
+  }
+}
+```
+✅ Use for: Decoupling objects that communicate frequently.
+
+---
+
+## **8. Strategy Pattern**
+Encapsulates algorithms and makes them interchangeable.
+```javascript
+class PaymentStrategy {
+  pay(amount) {
+    throw new Error("This method should be overridden");
+  }
+}
+
+class CreditCardPayment extends PaymentStrategy {
+  pay(amount) {
+    console.log(`Paid ${amount} using Credit Card`);
+  }
+}
+
+class PayPalPayment extends PaymentStrategy {
+  pay(amount) {
+    console.log(`Paid ${amount} using PayPal`);
+  }
+}
+```
+✅ Use for: Swappable behaviors without modifying main logic.
+
+---
+
+### **Conclusion**
+JavaScript design patterns help write scalable, maintainable code. Understanding and applying these patterns improves application architecture and performance.
+
+Let me know if you want more details on a specific pattern! 🚀
+
+
