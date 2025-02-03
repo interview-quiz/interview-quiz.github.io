@@ -1198,3 +1198,106 @@ export class WatchComponent implements OnInit {
 | **Performance**         | Built for Angular and optimized for change detection. | Slightly heavier due to Observable subscriptions. |
 
 ---
+
+
+# `ng-template` vs `ng-content` in Angular
+
+Angular provides powerful structural directives for handling dynamic content rendering. Two important features, `ng-template` and `ng-content`, serve distinct purposes in Angular applications. This document explains their differences, use cases, and examples.
+
+---
+
+## **What is `ng-template`?**
+
+`ng-template` is an Angular directive used for defining **deferred or reusable content** that is not rendered in the DOM unless explicitly used. It is commonly employed with `*ngIf`, `ngFor`, and `ViewContainerRef` for dynamic UI rendering.
+
+### **Key Features:**
+- It is **not** rendered in the DOM unless explicitly instructed.
+- Used for **reusable templates**.
+- Can be dynamically inserted using `ngTemplateOutlet`.
+- Supports passing context to templates.
+
+### **Example: Using `ng-template` with `*ngIf`**
+```html
+<div *ngIf="isLoggedIn; else loginTemplate">
+  <p>Welcome, User!</p>
+</div>
+
+<ng-template #loginTemplate>
+  <p>Please log in.</p>
+</ng-template>
+```
+
+### **Example: Reusable Templates with `ngTemplateOutlet`**
+```html
+<ng-container *ngTemplateOutlet="userTemplate; context: { name: 'John' }"></ng-container>
+
+<ng-template #userTemplate let-name>
+  <p>User: {{ name }}</p>
+</ng-template>
+```
+
+---
+
+## **What is `ng-content`?**
+
+`ng-content` is used for **content projection**, allowing a component to accept **external content** and render it within a predefined area. It enables developers to create flexible and reusable components.
+
+### **Key Features:**
+- Used for **content projection** (inserting external content into a component).
+- Allows **slot-based projection** using `select` attributes.
+- Ideal for creating reusable UI components like modals, cards, etc.
+
+### **Example: Using `ng-content` for Content Projection**
+#### **Parent Component (Using the Child Component)**
+```html
+<app-card>
+  <h3>Card Title</h3>
+  <p>This is the card content.</p>
+</app-card>
+```
+
+#### **Child Component (`app-card.component.html`)**
+```html
+<div class="card">
+  <ng-content></ng-content>  <!-- Content from the parent will be projected here -->
+</div>
+```
+
+### **Example: Multi-slot Content Projection**
+#### **Parent Component (Passing Different Content Blocks)**
+```html
+<app-modal>
+  <h2 title>Modal Header</h2>
+  <p>Some modal content...</p>
+  <button action>Close</button>
+</app-modal>
+```
+
+#### **Child Component (`app-modal.component.html`)**
+```html
+<div class="modal">
+  <header><ng-content select="[title]"></ng-content></header>
+  <section><ng-content></ng-content></section>
+  <footer><ng-content select="[action]"></ng-content></footer>
+</div>
+```
+
+---
+
+## **Comparison: `ng-template` vs `ng-content`**
+
+| Feature           | `ng-template`                          | `ng-content`                             |
+|------------------|--------------------------------------|-----------------------------------------|
+| **Purpose**      | Defines reusable or deferred content | Projects content from parent components |
+| **Rendering**    | Not rendered unless explicitly used  | Rendered immediately in the component  |
+| **Use Case**     | Dynamic UI (e.g., `*ngIf`, `ngFor`)  | Component slots for flexible content    |
+| **Customization**| Can receive context via `let-`      | Supports multi-slot projection          |
+
+---
+
+## **When to Use What?**
+- Use `ng-template` when you need **conditionally rendered or reusable content**.
+- Use `ng-content` when you need **to pass content dynamically into a component** (e.g., reusable UI components like cards, modals, or tabs).
+
+Both features play a crucial role in making Angular applications more **dynamic and reusable**, improving **code modularity and flexibility**.
+
