@@ -89,6 +89,8 @@ While TypeScript enforces types, it also allows dynamic typing, giving flexibili
 
 # **Key Concepts in Type Manipulation**
 
+## what is Record in typescript?
+
 ## **1. Mapped Types**
 
 Mapped types create new types by transforming properties of an existing type.
