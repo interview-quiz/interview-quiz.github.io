@@ -538,3 +538,202 @@ module.exports = nextConfig;
 ---
 
 Would you like detailed examples of type manipulation applied to your **Next.js project** (e.g., reusable components, hooks)?
+
+
+
+# TypeScript Generics and Utility Types
+
+TypeScript provides powerful features like **Generics** and **Utility Types** to create flexible, reusable, and type-safe code. This guide covers these concepts with practical examples.
+
+---
+
+## **Generics**
+Generics allow you to define reusable code with type parameters. This makes your code flexible and type-safe.
+
+### **Basic Syntax**
+```typescript
+function identity<T>(value: T): T {
+  return value;
+}
+
+console.log(identity<string>("Hello")); // Output: Hello
+console.log(identity<number>(42));      // Output: 42
+```
+
+---
+
+### **Generic Functions**
+You can use generics to create functions that accept and return types dynamically:
+```typescript
+function getArray<T>(items: T[]): T[] {
+  return new Array<T>().concat(items);
+}
+
+let numArray = getArray<number>([1, 2, 3]);
+let strArray = getArray<string>(["A", "B", "C"]);
+```
+
+---
+
+### **Generic Interfaces**
+```typescript
+interface KeyValuePair<K, V> {
+  key: K;
+  value: V;
+}
+
+let obj: KeyValuePair<string, number> = { key: "Age", value: 30 };
+```
+
+---
+
+### **Generic Classes**
+```typescript
+class Box<T> {
+  private _value: T;
+
+  constructor(value: T) {
+    this._value = value;
+  }
+
+  getValue(): T {
+    return this._value;
+  }
+}
+
+let numberBox = new Box<number>(100);
+console.log(numberBox.getValue()); // Output: 100
+```
+
+---
+
+### **Generic Constraints**
+```typescript
+interface Lengthwise {
+  length: number;
+}
+
+function logLength<T extends Lengthwise>(item: T): void {
+  console.log(item.length);
+}
+
+logLength("Hello"); // Valid
+logLength([1, 2, 3]); // Valid
+// logLength(10); // ❌ Error: number does not have length
+```
+
+---
+
+## **`Record` Utility Type**
+The `Record` type allows you to create an object type with specific keys and values.
+
+### **Syntax**
+```typescript
+Record<Keys, Type>
+```
+- `Keys`: A union of keys that the object will have.
+- `Type`: The type of the values corresponding to those keys.
+
+### **Example Usage**
+```typescript
+type RolePermissions = Record<"admin" | "editor" | "viewer", boolean>;
+
+const permissions: RolePermissions = {
+  admin: true,
+  editor: false,
+  viewer: true,
+};
+```
+
+---
+
+## **Other Utility Types**
+TypeScript provides several built-in utility types to simplify type manipulation.
+
+### **1. `Partial<T>`**
+Makes all properties optional:
+```typescript
+type User = { name: string; age: number };
+const partialUser: Partial<User> = { name: "Alice" };
+```
+
+### **2. `Readonly<T>`**
+Makes all properties read-only:
+```typescript
+type User = { name: string; age: number };
+const readonlyUser: Readonly<User> = { name: "Alice", age: 25 };
+// readonlyUser.name = "Bob"; // ❌ Error
+```
+
+### **3. `Pick<T, Keys>`**
+Creates a type by picking specific keys from `T`:
+```typescript
+type User = { name: string; age: number; email: string };
+
+type UserPreview = Pick<User, "name" | "email">;
+const userPreview: UserPreview = { name: "Alice", email: "alice@example.com" };
+```
+
+### **4. `Omit<T, Keys>`**
+Creates a type by omitting specific keys from `T`:
+```typescript
+type User = { name: string; age: number; email: string };
+
+type WithoutEmail = Omit<User, "email">;
+const user: WithoutEmail = { name: "Alice", age: 25 };
+```
+
+### **5. `Required<T>`**
+Makes all properties required:
+```typescript
+type User = { name?: string; age?: number };
+const user: Required<User> = { name: "Alice", age: 25 };
+```
+
+### **6. `ReturnType<T>`**
+Extracts the return type of a function:
+```typescript
+function getUser() {
+  return { name: "Alice", age: 25 };
+}
+
+type User = ReturnType<typeof getUser>; // { name: string; age: number }
+```
+
+### **7. `Exclude<T, U>`**
+Excludes types from `T` that are assignable to `U`:
+```typescript
+type Status = "active" | "inactive" | "archived";
+type ActiveStatus = Exclude<Status, "archived">;
+```
+
+### **8. `Extract<T, U>`**
+Extracts types from `T` that are assignable to `U`:
+```typescript
+type Status = "active" | "inactive" | "archived";
+type OnlyArchived = Extract<Status, "archived">;
+```
+
+### **9. `NonNullable<T>`**
+Removes `null` and `undefined` from `T`:
+```typescript
+type User = string | null | undefined;
+type NonNullUser = NonNullable<User>; // string
+```
+
+### **10. `Parameters<T>`**
+Gets the parameter types of a function type as a tuple:
+```typescript
+type Func = (name: string, age: number) => void;
+type Params = Parameters<Func>; // [string, number]
+```
+
+---
+
+## **Conclusion**
+Generics and utility types make TypeScript a robust and flexible language for building scalable applications. By mastering these tools, you can create reusable, type-safe, and clean code.
+
+Feel free to explore and experiment with these concepts in your projects!
+
+
+
