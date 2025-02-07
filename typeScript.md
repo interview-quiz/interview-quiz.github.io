@@ -737,3 +737,115 @@ Feel free to explore and experiment with these concepts in your projects!
 
 
 
+# Difference Between `any`, `unknown`, and `never` in TypeScript
+
+In TypeScript, `any`, `unknown`, and `never` are three special types that serve different purposes. Here’s a detailed comparison of their differences:  
+
+| Type      | Meaning | Usage | Safety Level |
+|-----------|---------|-------|--------------|
+| `any`     | Can be anything; disables type checking. | Used when you don’t care about type safety. | **Unsafe** ❌ |
+| `unknown` | Can be anything, but must be type-checked before use. | Used when dealing with uncertain types. | **Safer than `any`** ✅ |
+| `never`   | Represents values that **never occur**. | Used for functions that never return or for exhaustive type checking. | **Strictest** ✅✅ |
+
+---
+
+## **1️⃣ `any` (No Type Safety)**
+The `any` type allows **anything** and effectively disables TypeScript’s type checking.
+
+```typescript
+let value: any;
+
+value = 42;          // ✅ Allowed
+value = "hello";     // ✅ Allowed
+value = true;        // ✅ Allowed
+
+// You can do anything with `any`, but it's dangerous
+value.toUpperCase(); // ✅ No error (even if value is a number)
+```
+
+### **Drawbacks of `any`**
+- No compile-time safety.
+- Can lead to unexpected runtime errors.
+- TypeScript does **not** check what you're doing with `any`.
+
+---
+
+## **2️⃣ `unknown` (Safer Alternative to `any`)**
+The `unknown` type **accepts any value**, but unlike `any`, you **must** type-check it before using it.
+
+```typescript
+let value: unknown;
+
+value = 42;          // ✅ Allowed
+value = "hello";     // ✅ Allowed
+
+// ❌ Error: TypeScript doesn't know the actual type
+// value.toUpperCase();  
+
+// ✅ Must type-check first
+if (typeof value === "string") {
+  console.log(value.toUpperCase()); // ✅ Safe
+}
+```
+
+### **Why Use `unknown` Instead of `any`?**
+- Prevents unsafe operations.
+- Encourages type-checking before use.
+- Ensures better type safety in applications.
+
+---
+
+## **3️⃣ `never` (Impossible Values)**
+The `never` type is used for values that **never occur**. It usually appears in functions that throw errors or enter infinite loops.
+
+```typescript
+function throwError(message: string): never {
+  throw new Error(message);
+}
+
+function infiniteLoop(): never {
+  while (true) {
+    console.log("Running forever...");
+  }
+}
+```
+
+### **When to Use `never`?**
+- Functions that **always throw errors**.
+- Functions that **never return** (like infinite loops).
+- **Exhaustive type checking** in a `switch` statement:
+
+```typescript
+type Shape = "circle" | "square";
+
+function getShape(shape: Shape): string {
+  switch (shape) {
+    case "circle":
+      return "It’s a circle!";
+    case "square":
+      return "It’s a square!";
+    default:
+      const _exhaustiveCheck: never = shape; // Ensures all cases are handled
+      throw new Error(`Unexpected shape: ${_exhaustiveCheck}`);
+  }
+}
+```
+
+If a new shape is added (`"triangle"`), TypeScript will **force** you to update this function.
+
+---
+
+## **Key Differences Summarized**
+| Feature  | `any` | `unknown` | `never` |
+|----------|------|----------|--------|
+| Accepts any value? | ✅ Yes | ✅ Yes | ❌ No |
+| Type-check required? | ❌ No | ✅ Yes | ✅ N/A |
+| Safe to use? | ❌ No | ✅ Yes | ✅ Yes |
+| Used in function return types? | ✅ Yes | ✅ Yes | ✅ Yes, but only when function never returns |
+
+### **When Should You Use Each?**
+- ✅ Use **`any`** when you **don’t care about type safety** (e.g., third-party libraries).
+- ✅ Use **`unknown`** when you receive **unknown data** (e.g., API responses) but want **type safety**.
+- ✅ Use **`never`** for **functions that never return** or for **exhaustive type checking**.
+
+
