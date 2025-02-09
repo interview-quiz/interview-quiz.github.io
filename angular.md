@@ -1465,4 +1465,201 @@ Understanding and optimizing Angular Change Detection improves performance by re
 - Use `detach()` and `detectChanges()` for complex forms.
 - Use `markForCheck()` for real-time applications.
 
-🚀 Applying these techniques will make your Angular apps faster and more efficient!
+
+# Angular New Features: Standalone Components, Signals, and @defer
+
+## 1️⃣ Standalone Components (No Need for NgModules)
+In Angular 15+, you can create components without `NgModule`. This simplifies the app structure.
+
+### ✅ Example: Creating a Standalone Component
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-profile',
+  standalone: true, // 👈 No need for a module
+  template: `<h2>Welcome, {{ name }}!</h2>`,
+})
+export class ProfileComponent {
+  name = 'John Doe';
+}
+```
+
+### 🛠 How to Use This Component?
+Simply import it in `main.ts`:
+```ts
+import { bootstrapApplication } from '@angular/platform-browser';
+import { ProfileComponent } from './app/profile.component';
+
+bootstrapApplication(ProfileComponent);
+```
+✅ No need for `AppModule`, everything works directly!
+
+---
+
+## 2️⃣ Signals (Better Reactivity)
+Angular introduced **Signals** to improve state management and eliminate `ChangeDetectionStrategy.OnPush`.
+
+### ✅ Example: Using Signals in a Component
+```ts
+import { Component, signal } from '@angular/core';
+
+@Component({
+  selector: 'app-counter',
+  standalone: true,
+  template: `
+    <h2>Counter: {{ count() }}</h2>
+    <button (click)="increment()">Increase</button>
+  `,
+})
+export class CounterComponent {
+  count = signal(0); // 👈 Reactive state
+
+  increment() {
+    this.count.update(value => value + 1);
+  }
+}
+```
+**🚀 Benefits of Signals**:
+- No need for RxJS `BehaviorSubject`
+- Auto-triggers UI updates
+- Works like a simple reactive variable
+
+---
+
+## 3️⃣ New Angular Decorators
+Angular has simplified decorators for components.
+
+### ✅ Example: New `@Input` and `@Output`
+```ts
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+
+@Component({
+  selector: 'app-child',
+  standalone: true,
+  template: `
+    <h3>{{ message }}</h3>
+    <button (click)="sendMessage()">Send</button>
+  `,
+})
+export class ChildComponent {
+  @Input() message = ''; // 👈 New @Input
+  @Output() notify = new EventEmitter<string>();
+
+  sendMessage() {
+    this.notify.emit('Hello from child!');
+  }
+}
+```
+
+---
+
+## 4️⃣ New Control Flow Syntax (`@if`, `@for`, `@switch`)
+Instead of `*ngIf` and `*ngFor`, Angular now has a new way to handle conditions.
+
+### ✅ Example: Using `@if`, `@for`
+```html
+@for (item of items; track item) {
+  <p>{{ item }}</p>
+}
+
+@if (isLoggedIn) {
+  <h2>Welcome, User!</h2>
+} @else {
+  <h2>Please log in</h2>
+}
+```
+🚀 This makes templates **cleaner** and **faster**.
+
+---
+
+## 🔥 Summary of Key Updates
+| Feature                 | Old Way | New Way |
+|-------------------------|--------|---------|
+| Standalone Components  | `NgModule` required | `standalone: true` |
+| State Management       | RxJS `BehaviorSubject` | `signal()` |
+| Conditional Rendering  | `*ngIf`, `*ngFor` | `@if`, `@for` |
+| Inputs & Outputs       | Same syntax | Improved performance |
+
+---
+
+## 5️⃣ Using @defer for Asynchronous Rendering
+
+Angular introduced the **`@defer`** decorator to defer the rendering of non-critical content, improving performance by loading parts of the UI asynchronously.
+
+### ✅ How `@defer` Works
+When you mark a part of the component template with `@defer`, Angular will load the content asynchronously after the initial rendering. This can be helpful for large sections of the page or non-critical content that doesn’t need to appear immediately.
+
+### ✅ Example of Using `@defer`
+
+#### 1. **Basic Example**:
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-dashboard',
+  standalone: true,
+  template: `
+    <h1>Dashboard</h1>
+    <div>
+      <h3>Main Content</h3>
+      <p>Some important content is displayed here.</p>
+    </div>
+
+    <!-- Deferred Content -->
+    <div *ngIf="isDeferredLoaded">
+      <h3>Deferred Section</h3>
+      <p>This content will load after the initial page load.</p>
+    </div>
+  `,
+})
+export class DashboardComponent {
+  isDeferredLoaded = false;
+
+  ngOnInit() {
+    // Simulate delayed loading of content
+    setTimeout(() => {
+      this.isDeferredLoaded = true;
+    }, 3000); // Load content after 3 seconds
+  }
+}
+```
+In this example:
+- The **initial content** (`Main Content`) is shown immediately.
+- The **Deferred Section** (`Deferred Section`) is only displayed after 3 seconds, which mimics a delayed or asynchronous loading of content.
+
+#### 2. **Using `@defer` in Template**:
+In Angular 15+, you can use `@defer` in the component template to indicate that certain blocks should be deferred. Here’s how you would use it:
+
+```ts
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-dashboard',
+  standalone: true,
+  template: `
+    <h1>Dashboard</h1>
+    <div>
+      <h3>Main Content</h3>
+      <p>This is important content displayed right away.</p>
+    </div>
+
+    <!-- Deferred Content with @defer -->
+    @defer
+    <div>
+      <h3>Deferred Section</h3>
+      <p>This content is loaded asynchronously, after the page has loaded.</p>
+    </div>
+  `,
+})
+export class DashboardComponent {}
+```
+
+### 🚀 Benefits of `@defer`:
+- **Performance Improvement**: Defer non-critical sections of your UI until after the main content is loaded.
+- **Faster Initial Load**: Reduces the time it takes for the main content to load, improving user experience.
+- **Asynchronous Rendering**: This feature leverages Angular’s efficient rendering strategies to only load what's necessary initially.
+
+### 🏆 When to Use `@defer`:
+- For sections of the UI that are not critical to the user experience (e.g., large banners, advertisements, extra content sections).
+- When you need to prioritize the initial rendering of key components and defer others.
