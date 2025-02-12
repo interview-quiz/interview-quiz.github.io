@@ -1,15 +1,7 @@
 # Advance Angular
 
 ## 1 Introduction
-
-### 1.1 notes
-
-```javascript
-console.log("Angular");
-```
-
-
-
+- [NGRX](https://github.com/tauhidul0821/angular-with-ngrx)
 
 # Angular Application with Advanced Features
 
