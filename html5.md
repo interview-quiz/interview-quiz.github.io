@@ -214,117 +214,102 @@ Would you like me to explain any of these in more detail?
 
 ```
 
+# HTML5 Canvas Guide
 
+## 1. Introduction to `<canvas>`
+The `<canvas>` element is used to draw graphics using JavaScript. It's great for creating animations, games, and interactive visualizations.
 
-1. Introduction to <canvas>
-
-The <canvas> element is used to draw graphics using JavaScript. It's great for creating animations, game graphics, and interactive visualizations.
-
-Basic Syntax
-
+### Basic Syntax
+```html
 <canvas id="myCanvas" width="500" height="300"></canvas>
+```
 
-This creates a blank area where we can draw using JavaScript.
+## 2. Getting the Canvas Context
+To draw on a `<canvas>`, you need to get its rendering context.
 
-
----
-
-2. Getting the Canvas Context
-
-To draw on a <canvas>, you need to get its rendering context.
-
-Example: Accessing the Context
-
+```html
 <canvas id="myCanvas" width="500" height="300"></canvas>
 <script>
   const canvas = document.getElementById("myCanvas");
   const ctx = canvas.getContext("2d"); // Get 2D drawing context
 </script>
+```
 
-Now, ctx allows us to draw shapes, text, and images.
+## 3. Drawing Shapes
 
-
----
-
-3. Drawing Shapes
-
-Drawing a Rectangle
-
-ctx.fillStyle = "blue";  // Fill color
+### Rectangle
+```js
+ctx.fillStyle = "blue";  
 ctx.fillRect(50, 50, 100, 100); // (x, y, width, height)
+```
 
-Drawing a Line
-
+### Line
+```js
 ctx.beginPath();
 ctx.moveTo(50, 50);
 ctx.lineTo(200, 200);
 ctx.strokeStyle = "red";
 ctx.lineWidth = 5;
 ctx.stroke();
+```
 
-Drawing a Circle
-
+### Circle
+```js
 ctx.beginPath();
 ctx.arc(150, 150, 50, 0, Math.PI * 2);
 ctx.fillStyle = "green";
 ctx.fill();
+```
 
+## 4. Working with Colors & Gradients
 
----
-
-4. Working with Colors & Gradients
-
-Filling with Solid Colors
-
+### Solid Color
+```js
 ctx.fillStyle = "orange";
 ctx.fillRect(10, 10, 100, 100);
+```
 
-Using Linear Gradient
-
+### Linear Gradient
+```js
 const gradient = ctx.createLinearGradient(0, 0, 200, 0);
 gradient.addColorStop(0, "red");
 gradient.addColorStop(1, "yellow");
 
 ctx.fillStyle = gradient;
 ctx.fillRect(10, 10, 200, 100);
+```
 
-Using Radial Gradient
-
+### Radial Gradient
+```js
 const radialGradient = ctx.createRadialGradient(100, 100, 10, 100, 100, 50);
 radialGradient.addColorStop(0, "blue");
 radialGradient.addColorStop(1, "white");
 
 ctx.fillStyle = radialGradient;
 ctx.fillRect(50, 50, 200, 200);
+```
 
-
----
-
-5. Drawing Text
-
+## 5. Drawing Text
+```js
 ctx.font = "30px Arial";
 ctx.fillStyle = "purple";
 ctx.fillText("Hello Canvas", 50, 50);
 
 ctx.strokeStyle = "black";
 ctx.strokeText("Outlined Text", 50, 100);
+```
 
-
----
-
-6. Drawing Images
-
+## 6. Drawing Images
+```js
 const img = new Image();
 img.src = "your-image.jpg";
 img.onload = function () {
   ctx.drawImage(img, 50, 50, 200, 150);
 };
+```
 
-
----
-
-7. Animations with Canvas
-
+## 7. Animations
+```js
 let x = 0;
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -334,35 +319,21 @@ function animate() {
   requestAnimationFrame(animate);
 }
 animate();
+```
 
-
----
-
-8. Handling User Interaction
-
+## 8. Handling User Interaction
+```js
 canvas.addEventListener("click", function (event) {
   const x = event.clientX - canvas.offsetLeft;
   const y = event.clientY - canvas.offsetTop;
   ctx.fillStyle = "red";
   ctx.fillRect(x, y, 20, 20);
 });
+```
 
-
----
-
-9. Advanced Topics
-
-Physics-based animations (e.g., gravity, bouncing balls)
-
-Drawing complex shapes with Bezier curves
-
-Creating a game with player movement
-
-Implementing real-time drawing apps
-
-Using WebGL for 3D graphics on <canvas>
-
-
-Would you like me to guide you step by step with practice tasks?
-
-
+## 9. Advanced Topics
+- Physics-based animations (e.g., gravity, bouncing balls)
+- Drawing complex shapes with Bezier curves
+- Creating a game with player movement
+- Implementing real-time drawing apps
+- Using WebGL for 3D graphics on `<canvas>`
