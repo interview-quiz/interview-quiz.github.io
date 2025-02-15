@@ -848,4 +848,165 @@ If a new shape is added (`"triangle"`), TypeScript will **force** you to update 
 - ✅ Use **`unknown`** when you receive **unknown data** (e.g., API responses) but want **type safety**.
 - ✅ Use **`never`** for **functions that never return** or for **exhaustive type checking**.
 
+## Index Types
+
+10.Dependency Injection: Dependency Injection is a pattern that allows you to bring code into your component without actually creating or managing it there. While it may seem like using a library, it's different because you don’t need to install or import it via a CDN or API.
+
+At first glance, it might also seem similar to using functions for reusability, as both allow for code reuse. However, if we use functions directly in our components, it can lead to tight coupling between them. This means that any change in the function or its logic could impact every place it is used.
+
+Dependency Injection solves this problem by decoupling the creation of dependencies from the components that use them, making the code more maintainable and testable.
+
+Example without dependency injection
+
+```ts
+// Health-related service classes without interfaces
+class MentalWellness {
+  getMentalWellnessAdvice(): string {
+    return "Take time to meditate and relax your mind.";
+  }
+}
+
+class PhysicalWellness {
+  getPhysicalWellnessAdvice(): string {
+    return "Make sure to exercise daily for at least 30 minutes.";
+  }
+}
+
+// HealthAdvice class directly creating instances of the services
+class HealthAdvice {
+  private mentalWellnessService: MentalWellness;
+  private physicalWellnessService: PhysicalWellness;
+
+  // Directly creating instances inside the class constructor
+  constructor() {
+    this.mentalWellnessService = new MentalWellness();
+    this.physicalWellnessService = new PhysicalWellness();
+  }
+
+  // Method to get both mental and physical wellness advice
+  getHealthAdvice(): string {
+    return `${this.mentalWellnessService.getMentalWellnessAdvice()} Also, ${this.physicalWellnessService.getPhysicalWellnessAdvice()}`;
+  }
+}
+
+// Creating an instance of HealthAdvice, which itself creates instances of the services
+const healthAdvice = new HealthAdvice();
+
+console.log(healthAdvice.getHealthAdvice());
+// Output: "Take time to meditate and relax your mind. Also, Make sure to exercise daily for at least 30 minutes."
+
+
+```
+Example with Dependecy Injection
+
+```ts
+// Health-related service interfaces with "I" prefix
+interface IMentalWellnessService {
+  getMentalWellnessAdvice(): string;
+}
+
+interface IPhysicalWellnessService {
+  getPhysicalWellnessAdvice(): string;
+}
+
+// Implementations of the services
+class MentalWellness implements IMentalWellnessService {
+  getMentalWellnessAdvice(): string {
+    return "Take time to meditate and relax your mind.";
+  }
+}
+
+class PhysicalWellness implements IPhysicalWellnessService {
+  getPhysicalWellnessAdvice(): string {
+    return "Make sure to exercise daily for at least 30 minutes.";
+  }
+}
+
+// HealthAdvice class that depends on services via interfaces
+class HealthAdvice {
+  private mentalWellnessService: IMentalWellnessService;
+  private physicalWellnessService: IPhysicalWellnessService;
+
+  // Dependency injection via constructor
+  constructor(
+    mentalWellnessService: IMentalWellnessService,
+    physicalWellnessService: IPhysicalWellnessService
+  ) {
+    this.mentalWellnessService = mentalWellnessService;
+    this.physicalWellnessService = physicalWellnessService;
+  }
+
+  // Method to get both mental and physical wellness advice
+  getHealthAdvice(): string {
+    return `${this.mentalWellnessService.getMentalWellnessAdvice()} Also, ${this.physicalWellnessService.getPhysicalWellnessAdvice()}`;
+  }
+}
+
+// Dependency injection
+const mentalWellness: IMentalWellnessService = new MentalWellness();
+const physicalWellness: IPhysicalWellnessService = new PhysicalWellness();
+
+// Injecting services into the HealthAdvice class
+const healthAdvice = new HealthAdvice(mentalWellness, physicalWellness);
+
+console.log(healthAdvice.getHealthAdvice());
+// Output: "Take time to meditate and relax your mind. Also, Make sure to exercise daily for at least 30 minutes."
+
+
+```
+In a tightly coupled scenario, if you have a stressLevel attribute in the MentalWellness class today and decide to change it to something else tomorrow, you would need to update all the places where it was used. This can lead to a lot of refactoring and maintenance challenges.
+
+However, with dependency injection and the use of interfaces, you can avoid this problem. By passing the dependencies (such as the MentalWellness service) through the constructor, the specific implementation details (like the stressLevel attribute) are abstracted away behind the interface. This means that changes to the attribute or class do not require modifications in the dependent classes, as long as the interface remains the same. This approach ensures that the code is loosely coupled, more maintainable, and easier to test, as you’re injecting what’s needed at runtime without tightly coupling components.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
