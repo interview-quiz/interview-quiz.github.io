@@ -1,6 +1,153 @@
 # TypeScript.md
 - Typescript-5-8-beta:  https://devblogs.microsoft.com/typescript/announcing-typescript-5-8-beta/
 
+# TypeScript Topics (Basic to Advanced)
+
+## 1. Basics
+- Introduction to TypeScript  
+- Installing and Setting Up TypeScript  
+- TypeScript Compiler (`tsc`)  
+- Basic Types (`number`, `string`, `boolean`, `null`, `undefined`)  
+- Type Inference and Type Annotations  
+
+## 2. Functions and Variables
+- `let`, `const`, and `var`  
+- Function Parameters and Return Types  
+- Optional and Default Parameters  
+- Rest Parameters  
+- Function Overloading  
+
+## 3. Advanced Types
+- Union Types  
+- Intersection Types  
+- Literal Types  
+- Type Aliases  
+- Enums (Numeric, String, Heterogeneous)  
+- Type Assertions (`as` and `<Type>`)  
+- Unknown and Never Types  
+- Void Type  
+
+## 4. Interfaces and Type Aliases
+- Defining Interfaces  
+- Extending Interfaces  
+- Readonly and Optional Properties  
+- Index Signatures (Index Types)  
+- Function Types with Interfaces  
+- Differences Between Interfaces and Type Aliases  
+
+## 5. Classes and Object-Oriented Programming
+- Classes and Objects  
+- Access Modifiers (`public`, `private`, `protected`)  
+- Readonly Properties  
+- Getters and Setters  
+- Static Properties and Methods  
+- Abstract Classes and Methods  
+- Class Inheritance  
+- Implementing Interfaces in Classes  
+
+## 6. Generics
+- Generic Functions  
+- Generic Classes  
+- Generic Interfaces  
+- Constraints in Generics  
+- Using `keyof` with Generics  
+
+## 7. Advanced Type Features
+- Mapped Types  
+- Conditional Types  
+- Template Literal Types  
+- Utility Types (`Partial`, `Required`, `Readonly`, `Record`, `Pick`, `Omit`, etc.)  
+- Indexed Access Types (`T[K]`)  
+- Key Remapping in Mapped Types  
+- **Infer Type in Conditional Types**  
+
+## 8. Modules and Namespaces
+- Import and Export Syntax  
+- Default and Named Exports  
+- Importing JSON Modules  
+- Using `namespace`  
+- Triple-Slash Directives (`/// <reference>`)  
+
+## 9. Asynchronous Programming
+- Promises and Async/Await  
+- Using `fetch` with TypeScript  
+- Error Handling in Async Functions  
+- Working with `axios` and HTTP Requests  
+
+## 10. TypeScript with JavaScript Frameworks
+- Using TypeScript with React (`tsx`)  
+- TypeScript with Angular  
+- TypeScript with Vue  
+- TypeScript with Node.js  
+
+## 11. Decorators and Metadata
+- Introduction to Decorators  
+- Class Decorators  
+- Method Decorators  
+- Property Decorators  
+- Parameter Decorators  
+- Metadata Reflection (`Reflect-metadata`)  
+
+## 12. TypeScript Compiler and Configuration
+- `tsconfig.json` Configuration  
+- Compiler Options (`strict`, `noImplicitAny`, `strictNullChecks`, etc.)  
+- Source Maps and Debugging  
+- TypeScript Path Mapping  
+- Using `tsc` with Different Module Resolutions  
+
+## 13. Testing in TypeScript
+- Unit Testing with Jest and TypeScript  
+- TypeScript with Mocha and Chai  
+- Writing Type-Safe Tests  
+
+## 14. Working with Third-Party Libraries
+- Using DefinitelyTyped (`@types/...`)  
+- Writing Custom Type Declarations (`*.d.ts`)  
+- Handling Type Incompatibilities in External Libraries  
+
+## 15. Advanced TypeScript Features
+- Discriminated Unions  
+- Recursive Types  
+- Branded Types (Nominal Typing)  
+- Variadic Tuple Types  
+- Type Guards and `typeof`, `instanceof`  
+- Exhaustive Checking with `never`  
+- **Infer Type (`infer`) in Mapped and Conditional Types**  
+
+## 16. TypeScript Performance Optimization
+- Tree Shaking  
+- Reducing Type Complexity  
+- Avoiding Excessive Type Inference  
+- Compiler Performance Optimizations  
+
+## 17. TypeScript for Large-Scale Applications
+- Monorepos and TypeScript  
+- Dependency Injection in TypeScript  
+- Modular Code Design  
+- Best Practices for Scalable TypeScript Applications  
+
+## 18. Deno and TypeScript
+- Introduction to Deno  
+- Using TypeScript with Deno  
+- Differences Between Deno and Node.js  
+
+## 19. TypeScript Design Patterns
+- Singleton Pattern  
+- Factory Pattern  
+- Observer Pattern  
+- Decorator Pattern  
+- Dependency Injection Pattern  
+
+## 20. Advanced TypeScript Debugging
+- Debugging in VS Code  
+- Using Source Maps for Debugging  
+- Logging and Error Handling in TypeScript  
+
+## 21. TypeScript and WebAssembly
+- Compiling TypeScript to WebAssembly  
+- Using AssemblyScript  
+
+
 ## **Benefits of TypeScript**
 
 ### 1. **Static Typing**
