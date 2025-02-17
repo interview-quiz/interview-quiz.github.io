@@ -1197,7 +1197,11 @@ type Person = Name & Age; // Combines both types
 
 By following these guidelines, you can decide whether to use `type` or `interface` based on your needs in TypeScript development.
 
-
+![Image](https://github.com/user-attachments/assets/a7d5f99d-aa07-4611-b256-5cc4264afe31)
+![Image](https://github.com/user-attachments/assets/ae7df367-bf0d-41c4-af66-b74aa009d6f4)
+![Image](https://github.com/user-attachments/assets/be7c66e4-4d3d-4862-a375-3bff70f11a67)
+![Image](https://github.com/user-attachments/assets/9d14ca8c-9ffe-4317-925d-56da60212529)
+![Image](https://github.com/user-attachments/assets/93e29a81-cafe-4599-88e5-b9be364e0ac8)
 
 
 
