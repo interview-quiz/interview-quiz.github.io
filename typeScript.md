@@ -1108,50 +1108,94 @@ In a tightly coupled scenario, if you have a stressLevel attribute in the Mental
 
 However, with dependency injection and the use of interfaces, you can avoid this problem. By passing the dependencies (such as the MentalWellness service) through the constructor, the specific implementation details (like the stressLevel attribute) are abstracted away behind the interface. This means that changes to the attribute or class do not require modifications in the dependent classes, as long as the interface remains the same. This approach ensures that the code is loosely coupled, more maintainable, and easier to test, as you’re injecting what’s needed at runtime without tightly coupling components.
 
+# Type vs Interface in TypeScript
 
+When working with TypeScript, both `type` and `interface` can be used to define the structure of objects, but they have some key differences. Below is a guide to help you understand when to use each.
 
-     }
-   }
-   ```
+## 1. When to Use `interface`
+Use `interface` when:
+- You need to define an object structure (especially for classes and objects).
+- You want to take advantage of declaration merging.
+- You need to extend other interfaces.
 
-4. **For Readability and Code Maintainability**  
-   - `interface` is more readable and self-explanatory when defining objects.
-   ```typescript
-   interface User {
-     name: string;
-     age: number;
-   }
-   ```
+### Example:
+```typescript
+interface User {
+  id: number;
+  name: string;
+  email?: string; // Optional property
+}
 
----
+const user: User = {
+  id: 1,
+  name: "John Doe"
+};
+```
 
-## **Summary: When to Use What?**
+### Extending Interfaces
+Interfaces can be extended using `extends`:
+```typescript
+interface Admin extends User {
+  role: string;
+}
+```
 
-| Use Case | `type` | `interface` |
-|----------|--------|------------|
-| Object Structures | âœ… (Possible) | âœ… (Best Choice) |
-| Extending Types | âŒ (Use Intersection `&`) | âœ… (`extends` works well) |
-| Merging Declarations | âŒ | âœ… (Interfaces can merge) |
-| Function Types | âœ… | âœ… (But `type` is more concise) |
-| Tuples | âœ… | âŒ |
-| Union Types | âœ… | âŒ |
-| Primitive Aliases | âœ… | âŒ |
+### Declaration Merging
+If you define the same interface multiple times, TypeScript will merge them:
+```typescript
+interface User {
+  age?: number;
+}
+// Now, User has id, name, email, and age properties.
+```
 
----
+## 2. When to Use `type`
+Use `type` when:
+- You need to define primitive types, unions, tuples, or mapped types.
+- You want to define a union or intersection of multiple types.
+- You do not need declaration merging.
 
-## **General Rule of Thumb**
+### Example:
+```typescript
+type ID = number | string; // Union type
 
-- **Use `interface`** when defining an object structure that might be extended or implemented.  
-- **Use `type`** for unions, tuples, function types, and more advanced type features.  
+type Point = {
+  x: number;
+  y: number;
+};
 
----
+const p: Point = { x: 10, y: 20 };
+```
 
+### Using Type for Union Types
+```typescript
+type Status = "success" | "error" | "loading";
+```
 
+### Intersection of Types
+```typescript
+type Name = { name: string };
+type Age = { age: number };
 
+type Person = Name & Age; // Combines both types
+```
 
+## 3. Key Differences
+| Feature | `interface` | `type` |
+|---------|------------|--------|
+| Can be extended | ✅ `extends` keyword | ✅ `&` operator |
+| Can be merged | ✅ Yes | ❌ No |
+| Can define functions | ✅ Yes | ✅ Yes |
+| Can define unions | ❌ No | ✅ Yes |
+| Can define tuples | ❌ No | ✅ Yes |
+| Can define primitive types | ❌ No | ✅ Yes |
 
+## 4. Best Practices
+- Use `interface` for defining object shapes and when working with classes.
+- Use `type` for unions, intersections, and more complex type definitions.
+- Prefer `interface` when possible, as it provides better readability and declaration merging.
 
-
+By following these guidelines, you can decide whether to use `type` or `interface` based on your needs in TypeScript development.
 
 
 
