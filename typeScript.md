@@ -1110,7 +1110,41 @@ However, with dependency injection and the use of interfaces, you can avoid this
 
 
 
+     }
+   }
+   ```
 
+4. **For Readability and Code Maintainability**  
+   - `interface` is more readable and self-explanatory when defining objects.
+   ```typescript
+   interface User {
+     name: string;
+     age: number;
+   }
+   ```
+
+---
+
+## **Summary: When to Use What?**
+
+| Use Case | `type` | `interface` |
+|----------|--------|------------|
+| Object Structures | âœ… (Possible) | âœ… (Best Choice) |
+| Extending Types | âŒ (Use Intersection `&`) | âœ… (`extends` works well) |
+| Merging Declarations | âŒ | âœ… (Interfaces can merge) |
+| Function Types | âœ… | âœ… (But `type` is more concise) |
+| Tuples | âœ… | âŒ |
+| Union Types | âœ… | âŒ |
+| Primitive Aliases | âœ… | âŒ |
+
+---
+
+## **General Rule of Thumb**
+
+- **Use `interface`** when defining an object structure that might be extended or implemented.  
+- **Use `type`** for unions, tuples, function types, and more advanced type features.  
+
+---
 
 
 
