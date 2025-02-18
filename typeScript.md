@@ -1,8 +1,8 @@
 # TypeScript.md
 - Typescript-5-8-beta:  https://devblogs.microsoft.com/typescript/announcing-typescript-5-8-beta/
-  -  https://www.typescriptlang.org/docs/handbook/utility-types.html#excludeuniontype-excludedmembers
- 
-  -  https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html
+-  https://www.typescriptlang.org/docs/handbook/utility-types.html#excludeuniontype-excludedmembers
+-  https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html
+- Typescript-5-8-RC:  https://devblogs.microsoft.com/typescript/announcing-typescript-5-8-rc/
 
 # TypeScript Topics (Basic to Advanced)
 
