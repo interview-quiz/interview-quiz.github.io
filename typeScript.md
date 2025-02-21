@@ -1348,6 +1348,167 @@ For modern TypeScript projects, **triple-slash directives are rarely needed**, a
 
 Would you like to see a real-world example where namespaces might still be useful?
 
+TypeScript Object-Oriented Programming (OOP)
+
+Static Properties and Methods
+
+What is a Static Member?
+
+A static property or method belongs to the class itself rather than any individual instance of the class. This means:
+
+You can access it directly using the class name.
+
+You don't need to create an instance to use it.
+
+It's shared across all instances of the class.
+
+
+Example: Static Property
+
+class MathUtils {
+  static PI: number = 3.1416; // Shared across all instances
+
+  static circleArea(radius: number): number {
+    return this.PI * radius * radius; // Accessing static property
+  }
+}
+
+console.log(MathUtils.PI); // ✅ 3.1416
+console.log(MathUtils.circleArea(5)); // ✅ 78.54
+
+Static Methods
+
+Static methods belong to the class itself, not an instance.
+
+class Logger {
+  static log(message: string): void {
+    console.log(`[LOG]: ${message}`);
+  }
+}
+
+Logger.log("Application started"); // ✅ Calling without creating an object
+
+When to Use Static Members?
+
+
+---
+
+Abstract Classes and Methods
+
+What is an Abstract Class?
+
+An abstract class is a class that cannot be instantiated directly. Instead, it serves as a blueprint for other classes. It can:
+
+Have both implemented and abstract methods (methods without implementation).
+
+Force child classes to implement certain methods.
+
+
+Example: Abstract Class
+
+abstract class Shape {
+  abstract getArea(): number; // Abstract method (must be implemented by subclasses)
+
+  display(): void {
+    console.log("This is a shape.");
+  }
+}
+
+class Circle extends Shape {
+  constructor(private radius: number) {
+    super();
+  }
+
+  getArea(): number {
+    return Math.PI * this.radius * this.radius;
+  }
+}
+
+const myCircle = new Circle(5);
+console.log(myCircle.getArea()); // ✅ 78.54
+myCircle.display(); // ✅ "This is a shape."
+
+Abstract Class vs. Interface
+
+
+---
+
+Real-World Use Cases
+
+1. Static Members in Utility Classes
+
+class Logger {
+  static logInfo(message: string) {
+    console.log(`[INFO]: ${message}`);
+  }
+
+  static logError(message: string) {
+    console.error(`[ERROR]: ${message}`);
+  }
+}
+Logger.logInfo("User logged in"); // ✅ [INFO]: User logged in
+
+2. Singleton Database Connection
+
+class Database {
+  private static instance: Database;
+
+  private constructor() {
+    console.log("Database connection established.");
+  }
+
+  static getInstance(): Database {
+    if (!this.instance) {
+      this.instance = new Database();
+    }
+    return this.instance;
+  }
+}
+const db1 = Database.getInstance();
+const db2 = Database.getInstance();
+console.log(db1 === db2); // ✅ true (same instance)
+
+3. Abstract Class for Shapes in Graphic Applications
+
+abstract class Shape {
+  abstract getArea(): number;
+}
+
+class Circle extends Shape {
+  constructor(private radius: number) { super(); }
+  getArea(): number { return Math.PI * this.radius * this.radius; }
+}
+
+4. Payment Processing System
+
+abstract class Payment {
+  constructor(public amount: number) {}
+  abstract processPayment(): void;
+}
+
+class CreditCardPayment extends Payment {
+  processPayment() {
+    console.log(`Processing credit card payment of $${this.amount}`);
+  }
+}
+
+
+---
+
+When to Use Static vs. Abstract?
+
+
+---
+
+Conclusion
+
+Use Static Members for global state, utility functions, and constants.
+
+Use Abstract Classes when different classes share behavior but need custom implementations.
+
+
+Would you like to contribute or improve this guide? Feel free to fork and enhance it!
+
 
 
 
