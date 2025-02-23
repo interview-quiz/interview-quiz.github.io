@@ -337,3 +337,36 @@ canvas.addEventListener("click", function (event) {
 - Creating a game with player movement
 - Implementing real-time drawing apps
 - Using WebGL for 3D graphics on `<canvas>`
+- 
+
+<p>This is a <mark>Formatted: mark tag heighlight background</mark> text</p>
+    <p>This is a <em>important: em tag with semantic</em> text</p>
+    <p>This is a <i>important: i tag without semantic</i> text</p>
+
+    <progress value="50" max="100">50 percent</progress>
+
+    <nav>
+      <a href="/home">Home</a>
+      <a href="/about">About</a>
+      <a href="/service">Services</a>
+      <a href="/contact">Contact</a>
+    </nav>
+
+    <select>
+      <optgroup label="Asia">
+        <option>China</option>
+        <option>India</option>
+      </optgroup>
+      <optgroup label="Europe">
+        <option>Netherlands</option>
+        <option>France</option>
+      </optgroup>
+    </select>
+
+    <nav aria-label="breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li><a href="/products">Products</a></li>
+        <li>Electronics</li>
+      </ol>
+    </nav>
