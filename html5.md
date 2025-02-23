@@ -338,7 +338,7 @@ canvas.addEventListener("click", function (event) {
 - Implementing real-time drawing apps
 - Using WebGL for 3D graphics on `<canvas>`
 - 
-
+```html
 <p>This is a <mark>Formatted: mark tag heighlight background</mark> text</p>
     <p>This is a <em>important: em tag with semantic</em> text</p>
     <p>This is a <i>important: i tag without semantic</i> text</p>
@@ -370,3 +370,4 @@ canvas.addEventListener("click", function (event) {
         <li>Electronics</li>
       </ol>
     </nav>
+```
