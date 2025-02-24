@@ -1836,3 +1836,64 @@ Detach and reattach change detection in high-performance scenarios.
 
 
 ---
+
+
+# What is the name of the RxJS class that EventEmitter extends?
+
+## Question:
+
+**"The EventEmitter class provided by Angular extends a core RxJS class, adding an emit() method so it can send arbitrary values. What is the name of that class?"**
+
+## Answer:
+
+The **EventEmitter** class in Angular extends **RxJS’s Subject** class. The `Subject` class is a special type of Observable that allows values to be multicasted to multiple Observers.
+
+### Breakdown of the Concept:
+
+1. **RxJS Subject**:
+
+   - A `Subject` is both an **Observable** and an **Observer**.
+   - It allows multiple subscribers to listen for emitted values.
+   - It has methods like `next()`, `subscribe()`, and `complete()`.
+
+2. **EventEmitter in Angular**:
+
+   - The **EventEmitter** class extends `Subject`, meaning it inherits its capabilities.
+   - Angular adds an `emit()` method to simplify value emission.
+   - Internally, `emit(value)` is just a wrapper around `Subject`'s `next(value)`, making it easier to use.
+
+### Example Usage in Angular:
+
+```typescript
+import { Component, EventEmitter, Output } from '@angular/core';
+
+@Component({
+  selector: 'app-child',
+  template: `<button (click)="sendMessage()">Send Message</button>`
+})
+export class ChildComponent {
+  @Output() messageEvent = new EventEmitter<string>();
+
+  sendMessage() {
+    this.messageEvent.emit('Hello from Child!');
+  }
+}
+```
+
+Here, `messageEvent` behaves like a **Subject**, emitting values when `emit()` is called.
+
+### Key Takeaways:
+
+- The **EventEmitter** extends **RxJS’s Subject**.
+- It provides an `emit()` method as a wrapper around `Subject.next()`.
+- It is mainly used for **communication between Angular components**, especially in `@Output()` bindings.
+
+
+
+
+
+
+
+
+
+
