@@ -29,3 +29,13 @@ Redux and Content API serve different purposes in web applications. While Redux 
 
 - **Use Redux** if you need a predictable state management solution in an application where multiple components share data.
 - **Use a Content API** if your app needs to fetch structured content from a backend service (e.g., a headless CMS like Contentful, Strapi, or Sanity).
+
+- All react hooks
+- useState,
+- useEffect,
+- useContext,
+- useRef,
+- useReducer,
+- useCallback,
+- useMemo,
+- custom hooks
