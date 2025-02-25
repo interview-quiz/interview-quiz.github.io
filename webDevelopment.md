@@ -12,4 +12,6 @@
 ### what is web push api and how to use it ? 
 ### what is web payment request api and how to use it ? 
 
+- awesome tutorial for design patterns: https://www.youtube.com/watch?v=BJatgOiiht4
+![Screenshot (629)](https://github.com/user-attachments/assets/c8e0c7cf-b50d-417c-bac5-584e19c279eb)
 
