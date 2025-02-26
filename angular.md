@@ -3,7 +3,7 @@
 ## 1 Introduction
 - [NGRX](https://github.com/tauhidul0821/angular-with-ngrx)
 
-- [signal input] (https://angularexperts.io/blog/angular-signal-inputs)
+- [signalnput](https://angularexperts.io/blog/angular-signal-inputs)
 
 
 # Angular Application with Advanced Features
