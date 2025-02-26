@@ -3,6 +3,9 @@
 ## 1 Introduction
 - [NGRX](https://github.com/tauhidul0821/angular-with-ngrx)
 
+- [signal input] (https://angularexperts.io/blog/angular-signal-inputs)
+
+
 # Angular Application with Advanced Features
 
 This project demonstrates how to implement the following features in an Angular application:
