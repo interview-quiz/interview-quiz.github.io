@@ -885,16 +885,66 @@ class CreditCardPayment extends PaymentStrategy {
 class PayPalPayment extends PaymentStrategy {
   pay(amount) {
     console.log(`Paid ${amount} using PayPal`);
+
+
+
   }
 }
 ```
-✅ Use for: Swappable behaviors without modifying main logic.
 
----
 
-### **Conclusion**
-JavaScript design patterns help write scalable, maintainable code. Understanding and applying these patterns improves application architecture and performance.
 
-Let me know if you want more details on a specific pattern! 🚀
+- A closure is a function that has access to its outer function's scope, even when the outer function has returned. This allows the inner function to use variables from the outer function's scope.
+
+```
+
+function outer() {
+  let count = 0;
+
+  function inner() {
+    count++;
+    console.log(count);
+  }
+
+  return inner;
+}
+
+const counter = outer();
+counter(); // Outputs: 1
+counter(); // Outputs: 2
+counter(); // Outputs: 3
+```
+
+
+-In this example, inner is a closure because it maintains access to count even after outer has returned.
+
+- Another Concept: Proxy
+JavaScript Proxies allow you to intercept and customize operations performed on objects. They are useful for logging, validation, or even creating virtual properties.
+
+```
+const target = {
+  name: 'John',
+  age: 30
+};
+
+const handler = {
+  get: (target, prop) => {
+    console.log(`Getting ${prop}`);
+    return target[prop];
+  }
+};
+
+const proxy = new Proxy(target, handler);
+
+console.log(proxy.name); // Outputs: Getting name, then "John"
+
+```
+
+
+
+
+
+
+
 
 
