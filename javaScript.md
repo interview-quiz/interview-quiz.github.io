@@ -896,7 +896,7 @@ class PayPalPayment extends PaymentStrategy {
 
 - A closure is a function that has access to its outer function's scope, even when the outer function has returned. This allows the inner function to use variables from the outer function's scope.
 
-```
+```ts
 
 function outer() {
   let count = 0;
@@ -921,7 +921,7 @@ counter(); // Outputs: 3
 - Another Concept: Proxy
 JavaScript Proxies allow you to intercept and customize operations performed on objects. They are useful for logging, validation, or even creating virtual properties.
 
-```
+```ts
 const target = {
   name: 'John',
   age: 30
