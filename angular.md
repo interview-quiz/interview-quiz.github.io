@@ -1894,6 +1894,98 @@ Here, `messageEvent` behaves like a **Subject**, emitting values when `emit()` i
 
 
 
+## Custom Form Builder in Angular
+
+### Overview
+Instead of manually creating form builders for every component, we can create a reusable function that dynamically generates a `FormGroup` based on the given field names and their validators.
+
+---
+
+### Step 1: Create a Utility Function
+Create a file like `custom-form-builder.ts` in your `utils` or `services` folder.
+
+```typescript
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+export function customFormBuilder(fb: FormBuilder, ...fields: string[]): FormGroup {
+  const formControls: any = {};
+
+  fields.forEach((field) => {
+    formControls[field] = ['', Validators.required]; // Default to required, modify as needed
+  });
+
+  return fb.group(formControls);
+}
+```
+
+---
+
+### Step 2: Use It in a Component
+Inject `FormBuilder` and use `customFormBuilder`:
+
+```typescript
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { customFormBuilder } from '../utils/custom-form-builder';
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+})
+export class LoginComponent {
+  loginForm: FormGroup;
+
+  constructor(private fb: FormBuilder) {
+    this.loginForm = customFormBuilder(this.fb, 'userName', 'password');
+  }
+
+  submit() {
+    console.log(this.loginForm.value);
+  }
+}
+```
+
+---
+
+### Step 3: Use It in Another Component
+For example, a **registration form**:
+
+```typescript
+this.registerForm = customFormBuilder(this.fb, 'email', 'password', 'confirmPassword');
+```
+
+---
+
+### Step 4: Customize Validators (Optional)
+If you want **custom validators** per field, modify `customFormBuilder`:
+
+```typescript
+export function customFormBuilder(
+  fb: FormBuilder,
+  fields: { name: string; validators?: any[] }[]
+): FormGroup {
+  const formControls: any = {};
+
+  fields.forEach((field) => {
+    formControls[field.name] = ['', field.validators || []];
+  });
+
+  return fb.group(formControls);
+}
+```
+
+Then use it like:
+
+```typescript
+this.loginForm = customFormBuilder(this.fb, [
+  { name: 'userName', validators: [Validators.required, Validators.minLength(3)] },
+  { name: 'password', validators: [Validators.required, Validators.minLength(6)] },
+]);
+```
+
+---
+
+- This approach eliminates repetitive form creation and makes it scalable and reusable across components.
 
 
 
