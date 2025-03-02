@@ -1981,11 +1981,194 @@ this.loginForm = customFormBuilder(this.fb, [
   { name: 'userName', validators: [Validators.required, Validators.minLength(3)] },
   { name: 'password', validators: [Validators.required, Validators.minLength(6)] },
 ]);
+
+
+
+
+
+
 ```
 
 ---
 
-- This approach eliminates repetitive form creation and makes it scalable and reusable across components.
+- This approach eliminates repetitive form creation and makes it scalable
+-
+-
+-
+-
+- and reusable across components.
+
+
+
+In Angular, `@defer` is a relatively new template feature introduced in Angular 17 that allows you to defer loading parts of your component's template until certain conditions are met. This helps improve initial load performance by postponing the rendering of non-critical parts of your application.
+
+Here's how `@defer` works with examples:
+
+## Basic Usage
+
+```typescript
+@Component({
+  selector: 'app-example',
+  template: `
+    <div>Main content that loads immediately</div>
+    
+    @defer {
+      <app-heavy-component></app-heavy-component>
+    }
+  `
+})
+export class ExampleComponent {}
+```
+
+In this example, `app-heavy-component` won't be loaded or rendered immediately when the page loads. Instead, it will be deferred until Angular decides it's appropriate to load it.
+
+## Trigger Conditions
+
+You can specify different conditions for when to load the deferred content:
+
+### On Idle
+
+```typescript
+@defer (on idle) {
+  <app-analytics-dashboard></app-analytics-dashboard>
+}
+```
+
+This loads the component when the browser enters an idle state, meaning it's not processing other important tasks.
+
+### On Viewport
+
+```typescript
+@defer (on viewport) {
+  <app-comments-section></app-comments-section>
+}
+```
+
+This loads the component when it enters the user's viewport (i.e., when the user scrolls to it).
+
+### On Interaction
+
+```typescript
+<button #loadButton>Load More Content</button>
+
+@defer (on interaction(loadButton)) {
+  <app-additional-content></app-additional-content>
+}
+```
+
+This loads the component when the user interacts with a specific element (clicking the button in this case).
+
+### On Hover
+
+```typescript
+<div #hoverArea>Hover here to load content</div>
+
+@defer (on hover(hoverArea)) {
+  <app-tooltip-content></app-tooltip-content>
+}
+```
+
+This loads the component when the user hovers over a specific element.
+
+### On Timer
+
+```typescript
+@defer (on timer(2000)) {
+  <app-notifications></app-notifications>
+}
+```
+
+This loads the component after a specified time delay (2000ms in this example).
+
+## Placeholder and Loading States
+
+You can also define placeholder content to show while the deferred content is not yet loaded, and loading content to show while it's being loaded:
+
+```typescript
+@defer {
+  <app-product-recommendations></app-product-recommendations>
+  
+  @placeholder {
+    <div>Recommendations will appear here</div>
+  }
+  
+  @loading {
+    <div>Loading recommendations...</div>
+  }
+}
+```
+
+## Error Handling
+
+```typescript
+@defer {
+  <app-external-data></app-external-data>
+  
+  @error {
+    <div>Failed to load content. Please try again later.</div>
+  }
+}
+```
+
+## Real-World Example
+
+Here's a more complete example for a product page:
+
+```typescript
+@Component({
+  selector: 'app-product-page',
+  template: `
+    <!-- Critical content that loads immediately -->
+    <app-product-header [product]="product"></app-product-header>
+    <app-product-images [images]="product.images"></app-product-images>
+    <app-product-price [price]="product.price"></app-product-price>
+    <app-add-to-cart-button [productId]="product.id"></app-add-to-cart-button>
+    
+    <!-- Defer product description until viewport -->
+    @defer (on viewport) {
+      <app-product-description [description]="product.description"></app-product-description>
+      
+      @placeholder {
+        <div class="placeholder-box">Product details will appear as you scroll</div>
+      }
+      
+      @loading {
+        <div class="loading-spinner">Loading details...</div>
+      }
+    }
+    
+    <!-- Defer reviews until user clicks a button -->
+    <button #reviewsButton>Show Reviews</button>
+    @defer (on interaction(reviewsButton)) {
+      <app-product-reviews [productId]="product.id"></app-product-reviews>
+      
+      @placeholder {
+        <div class="placeholder-box">Click button to load reviews</div>
+      }
+      
+      @loading {
+        <div class="loading-spinner">Loading reviews...</div>
+      }
+    }
+    
+    <!-- Defer recommendations on idle -->
+    @defer (on idle) {
+      <app-product-recommendations [productId]="product.id"></app-product-recommendations>
+      
+      @placeholder {
+        <div class="placeholder-box">Related products will appear soon</div>
+      }
+    }
+  `
+})
+export class ProductPageComponent {
+  @Input() product: Product;
+}
+```
+
+The `@defer` directive helps improve your application's initial load time by only loading components when they're needed, resulting in better performance and user experience, especially for larger applications with complex templates.
+
+
 
 
 
