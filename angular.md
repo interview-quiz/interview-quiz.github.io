@@ -1,5 +1,6 @@
 # Advance Angular
 - https://angular.dev/guide/templates/control-flow
+- https://angular.love/angular-19-whats-new/
 ## 1 Introduction
 - [NGRX](https://github.com/tauhidul0821/angular-with-ngrx)
 
