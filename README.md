@@ -9,7 +9,7 @@
 - [Advance git](https://github.com/tauhidul0821/gitttut)
 - [observer pattern](https://github.com/tauhidul0821/observer-pattern)
 - [life cycle hooks](https://github.com/tauhidul0821/life-cycle-mastery)
-- [rxjs](https://github.com/tauhidul0821/rxjs-pactice)
+- [rxjs](https://github.com/tauhidul0821/ng-with-rxjs-subject)
 - [go](https://github.com/tauhidul0821/go)
 - [redux basic](https://github.com/tauhidul0821/redux-basic)
 - [vueJs](https://github.com/tauhidul0821/vue-crash-course)
