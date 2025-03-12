@@ -2,6 +2,7 @@
 - https://angular.dev/guide/templates/control-flow
 - https://angular.love/angular-19-whats-new/
 - https://primeng.org/
+- https://angular.dev/update-guide?v=16.0-17.0&l=2
 ## 1 Introduction
 - [NGRX](https://github.com/tauhidul0821/angular-with-ngrx)
 
