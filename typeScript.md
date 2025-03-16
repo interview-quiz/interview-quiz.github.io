@@ -313,6 +313,8 @@ type ReturnType<T> = T extends (...args: any[]) => infer R ? R : never;
 
 type MyFunction = () => number;
 type Result = ReturnType<MyFunction>; // number
+
+
 ```
 
 Here, `infer R` extracts the return type of a function.
@@ -793,6 +795,19 @@ const permissions: RolePermissions = {
   editor: false,
   viewer: true,
 };
+
+// another example
+type UserRoles = Record<string, string>;
+// Equivalent to:
+// type UserRoles = {
+//   [key: string]: string;
+// }
+
+const roles: UserRoles = {
+  admin: "Admin",
+  user: "User",
+};
+
 ```
 
 ---
@@ -803,8 +818,20 @@ TypeScript provides several built-in utility types to simplify type manipulation
 ### **1. `Partial<T>`**
 Makes all properties optional:
 ```typescript
-type User = { name: string; age: number };
-const partialUser: Partial<User> = { name: "Alice" };
+
+interface User {
+  id: number;
+  name: string;
+  age: number;
+}
+
+type PartialUser = Partial<User>;
+// Equivalent to:
+// type PartialUser = {
+//   id?: number;
+//   name?: string;
+//   age?: number;
+// }
 ```
 
 ### **2. `Readonly<T>`**
@@ -813,15 +840,47 @@ Makes all properties read-only:
 type User = { name: string; age: number };
 const readonlyUser: Readonly<User> = { name: "Alice", age: 25 };
 // readonlyUser.name = "Bob"; // ❌ Error
+
+// another example 
+
+interface User {
+  id: number;
+  name: string;
+}
+
+type ReadonlyUser = Readonly<User>;
+// Equivalent to:
+// type ReadonlyUser = {
+//   readonly id: number;
+//   readonly name: string;
+// }
+
 ```
 
 ### **3. `Pick<T, Keys>`**
 Creates a type by picking specific keys from `T`:
 ```typescript
+
 type User = { name: string; age: number; email: string };
 
 type UserPreview = Pick<User, "name" | "email">;
 const userPreview: UserPreview = { name: "Alice", email: "alice@example.com" };
+
+// Description: Creates a new type by picking a set of properties K from T.
+interface User {
+  id: number;
+  name: string;
+  age: number;
+}
+
+type UserNameAndAge = Pick<User, 'name' | 'age'>;
+// Equivalent to:
+// type UserNameAndAge = {
+//   name: string;
+//   age: number;
+// }
+
+
 ```
 
 ### **4. `Omit<T, Keys>`**
@@ -831,13 +890,40 @@ type User = { name: string; age: number; email: string };
 
 type WithoutEmail = Omit<User, "email">;
 const user: WithoutEmail = { name: "Alice", age: 25 };
+
+// Description: Creates a new type by omitting a set of properties K from T.
+
+interface User {
+  id: number;
+  name: string;
+  age: number;
+}
+
+type UserWithoutAge = Omit<User, 'age'>;
+// Equivalent to:
+// type UserWithoutAge = {
+//   id: number;
+//   name: string;
+// }
+
 ```
 
 ### **5. `Required<T>`**
 Makes all properties required:
 ```typescript
-type User = { name?: string; age?: number };
-const user: Required<User> = { name: "Alice", age: 25 };
+interface User {
+  id?: number;
+  name?: string;
+  age?: number;
+}
+
+type RequiredUser = Required<User>;
+// Equivalent to:
+// type RequiredUser = {
+//   id: number;
+//   name: string;
+//   age: number;
+// }
 ```
 
 ### **6. `ReturnType<T>`**
@@ -855,6 +941,14 @@ Excludes types from `T` that are assignable to `U`:
 ```typescript
 type Status = "active" | "inactive" | "archived";
 type ActiveStatus = Exclude<Status, "archived">;
+
+// another example
+type T = string | number | boolean;
+type U = string | boolean;
+
+type Result = Exclude<T, U>;
+// Result is 'number'
+
 ```
 
 ### **8. `Extract<T, U>`**
@@ -862,6 +956,14 @@ Extracts types from `T` that are assignable to `U`:
 ```typescript
 type Status = "active" | "inactive" | "archived";
 type OnlyArchived = Extract<Status, "archived">;
+
+// another example
+type T = string | number | boolean;
+type U = string | boolean;
+
+type Result = Extract<T, U>;
+// Result is 'string' | 'boolean'
+
 ```
 
 ### **9. `NonNullable<T>`**
@@ -869,6 +971,12 @@ Removes `null` and `undefined` from `T`:
 ```typescript
 type User = string | null | undefined;
 type NonNullUser = NonNullable<User>; // string
+
+// another example
+type T = string | number | null | undefined;
+type Result = NonNullable<T>;
+// Result is 'string' | 'number'
+
 ```
 
 ### **10. `Parameters<T>`**
