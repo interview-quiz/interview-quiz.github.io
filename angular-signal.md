@@ -1,6 +1,3 @@
-Based on the search results and recent Angular releases, here's a comprehensive list of new Angular features and keywords you should learn:
-
-## Angular 17+ New Features & Keywords:
 
 ### Core Signal-Based Features:
 - **Signals** - Reactive primitive for state management
@@ -115,6 +112,146 @@ export class ChildComponent {
 // Parent template
 <child [(value)]="parentValue" [(count)]="parentCount" />
 ```
+
+Let’s start from the **very beginning** and build up.
+
+--------------------------------
+1. What “output” means in Angular
+--------------------------------
+Angular **components** can **emit events** so that a **parent component** (or any other code that uses the component) can react.  
+In the older API we created an `@Output()` property that was an `EventEmitter`.  
+Starting with Angular 17+ we also have a new **signal-based output API**.
+
+So there are **two syntaxes** you will see today:
+
+A. Classic decorator API  
+   `@Output() somethingHappened = new EventEmitter<string>();`
+
+B. Modern function API (developer-preview, but stable in v20)  
+   `somethingHappened = output<string>();`
+
+Both do the same job: expose a stream of events **out of** the component.
+
+--------------------------------
+2. Minimal example – classic API
+--------------------------------
+child.component.ts
+```ts
+import { Component, EventEmitter, Output } from '@angular/core';
+
+@Component({
+  selector: 'app-child',
+  template: `
+    <button (click)="send()">Click me</button>
+  `
+})
+export class ChildComponent {
+  @Output() messageSent = new EventEmitter<string>();
+
+  send() {
+    this.messageSent.emit('Hello from child!');
+  }
+}
+```
+
+parent.component.html
+```html
+<app-child (messageSent)="onMessage($event)"></app-child>
+<p>Last message: {{ lastMessage }}</p>
+```
+
+parent.component.ts
+```ts
+export class ParentComponent {
+  lastMessage = '';
+
+  onMessage(msg: string) {
+    this.lastMessage = msg;
+  }
+}
+```
+
+- `@Output()` tells Angular that this property is **publicly available for listening**.  
+- `(messageSent)` in the parent template is **event binding** – the parent runs `onMessage` every time the child emits.  
+- `$event` is the payload passed to `emit(...)`.
+
+--------------------------------
+3. Same example – new function API
+--------------------------------
+child.component.ts
+```ts
+import { Component, output } from '@angular/core';
+
+@Component({
+  selector: 'app-child',
+  template: `
+    <button (click)="send()">Click me</button>
+  `
+})
+export class ChildComponent {
+  messageSent = output<string>();   // no decorator, no new EventEmitter()
+
+  send() {
+    this.messageSent.emit('Hello from child!');
+  }
+}
+```
+Everything else (HTML and parent TS) stays **identical**.
+
+Benefits of the new API  
+- Less boilerplate (no `new EventEmitter`, no decorator).  
+- Fully typed; you can’t emit the wrong type.  
+- Works inside `input`/`output`-only components (no constructor needed).
+
+--------------------------------
+4. Listening programmatically
+--------------------------------
+Sometimes you don’t bind in the template but want to listen inside the parent component:
+
+parent.component.ts
+```ts
+@ViewChild(ChildComponent) child!: ChildComponent;
+
+ngAfterViewInit() {
+  // classic
+  this.child.messageSent.subscribe(msg => console.log(msg));
+
+  // new API – returns an Observable too
+  this.child.messageSent.subscribe(msg => console.log(msg));
+}
+```
+
+--------------------------------
+5. Two-way binding sugar (“banana-in-a-box”)
+--------------------------------
+When an output name is exactly `xxxChange` and you also have an `@Input() xxx`, Angular lets you write:
+
+```html
+<counter [(count)]="value"></counter>
+```
+which is short for
+```html
+<counter [count]="value" (countChange)="value = $event"></counter>
+```
+
+--------------------------------
+6. Common pitfalls
+--------------------------------
+- Forgetting parentheses in the parent template: `(messageSent)` not `messageSent`.  
+- Trying to emit an object that contains functions – it will not survive JSON if you later use server-side rendering.  
+- Emitting too frequently without throttling in high-frequency scenarios (scroll, mouse-move).
+
+--------------------------------
+7. Quick checklist
+--------------------------------
+1. Inside child: decide what data type you will emit.  
+2. `output<type>()`, or `@Output() name = new EventEmitter<type>()`.  
+3. Call `.emit(value)` when something happens.  
+4. In parent template: `(name)="handler($event)"`.  
+5. In parent TS: create `handler(payload: type) { ... }`.
+
+That’s all there is to **output in Angular**—it’s just a typed event channel from child to parent.
+
 
 
 <img width="1920" height="1080" alt="Screenshot (636)" src="https://github.com/user-attachments/assets/63be8108-818f-4e23-832f-a4a607f4a15f" />
