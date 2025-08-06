@@ -1,4 +1,4 @@
-
+- https://medium.com/@sparklewebhelp/angular-19-the-ultimate-guide-for-developers-in-2025-b5a3896452c9
 ### Core Signal-Based Features:
 - **Signals** - Reactive primitive for state management
 - **Computed signals** - Derived values from other signals  
