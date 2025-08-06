@@ -93,6 +93,29 @@ So your complete learning list now includes all the previous features I mentione
 
 These features make NgComponentOutlet much more practical for real-world dynamic component scenarios compared to the older, more complex approaches that required manual component creation.
 
+## Model Inputs (Already in the list, but expanded):
+
+### Model Inputs - Two-Way Binding with Signals:
+- **model()** - Create two-way bindable signal inputs
+- **ModelSignal** - Type for model inputs
+- **model.required()** - Required model inputs
+- **model.withAlias()** - Model inputs with custom property names
+- **Two-way binding with signals** - [(ngModel)] equivalent for signals
+- **Parent-child signal communication** - Bi-directional data flow
+- **ModelRef** - Reference type for model signals
+
+### Usage Pattern:
+```typescript
+// Child component
+export class ChildComponent {
+  value = model<string>(''); // Creates two-way bindable signal
+  count = model.required<number>(); // Required model input
+}
+
+// Parent template
+<child [(value)]="parentValue" [(count)]="parentCount" />
+```
+
 
 <img width="1920" height="1080" alt="Screenshot (636)" src="https://github.com/user-attachments/assets/63be8108-818f-4e23-832f-a4a607f4a15f" />
 <img width="1920" height="1080" alt="Screenshot (637)" src="https://github.com/user-attachments/assets/0679bba4-152d-45c2-bfa6-0d5b502185d0" />
