@@ -1,3 +1,99 @@
+Based on the search results and recent Angular releases, here's a comprehensive list of new Angular features and keywords you should learn:
+
+## Angular 17+ New Features & Keywords:
+
+### Core Signal-Based Features:
+- **Signals** - Reactive primitive for state management
+- **Computed signals** - Derived values from other signals  
+- **Effect** - Side effects triggered by signal changes
+- **Signal inputs** - Component inputs as signals
+- **Signal queries** - ViewChild/ContentChild as signals
+- **Model inputs** - Two-way binding with signals
+
+### Change Detection & Performance:
+- **Zoneless change detection** - Lightweight change detection without Zone.js dependency
+- **Local change detection** - Optimized change detection strategies
+- **OnPush with signals** - Enhanced OnPush strategy
+- **ChangeDetectionScheduler** - New change detection scheduling
+
+### New Control Flow Syntax:
+- **@if** - New conditional rendering (replaces *ngIf)
+- **@for** - New loops (replaces *ngFor) 
+- **@switch** - New switch statements (replaces *ngSwitch)
+- **@empty** - Handle empty states in @for
+- **@placeholder** - Loading states
+- **@error** - Error states
+- **@loading** - Loading indicators
+
+### Resource Management APIs:
+- **resource()** - Elegant way to manage asynchronous API calls in signal-based applications
+- **rxResource()** - Works with Observables while resource works with Promises
+- **ResourceRef** - Return type of resource functions
+- **ResourceStatus** - Track loading/error states
+
+### SSR & Hydration:
+- **Non-destructive hydration** - Improved SSR hydration
+- **SSR debugging tools** - Modern SSR debugging tools introduced in Angular 18
+- **Event replay** - Replay events during hydration
+- **Incremental hydration** - Partial hydration strategies
+
+### Standalone & Architecture:
+- **Standalone components** - Defaulting to true in Angular 18
+- **Standalone APIs** - Bootstrapping without modules
+- **provideExperimentalZonelessChangeDetection** - Enable zoneless mode
+- **ApplicationConfig** - New configuration approach
+
+### Developer Experience:
+- **Angular DevKit** - Enhanced development tools
+- **ng-optimized-image** - Optimized image directive
+- **Angular Material 3** - Material Design 3 support
+- **CDK improvements** - Component Development Kit updates
+- **Schematics updates** - Enhanced code generation
+
+### Forms & Validation:
+- **Signal-based forms** - Reactive forms with signals
+- **FormControl signals** - Form controls as signals
+- **Validators with signals** - Signal-aware validation
+
+### Testing & Debugging:
+- **Signal testing utilities** - TestBed improvements for signals
+- **Zoneless testing** - Testing without Zone.js
+- **Component testing harnesses** - Enhanced testing tools
+
+### Experimental Features:
+- **View Transitions API** - Browser native page transitions
+- **@defer** - Lazy loading blocks
+- **@placeholder/@loading/@error** - Defer block states
+- **Material 3 theming** - New theming system
+- **Angular animations with signals** - Signal-aware animations
+
+### Migration & Compatibility:
+- **Control flow migration** - Automated migration to new syntax
+- **Signal migration schematics** - Auto-convert to signals
+- **Zoneless migration guide** - Move away from Zone.js
+- **Standalone migration** - Convert to standalone components
+
+
+
+### NgComponentOutlet Enhancements:
+- **NgComponentOutlet componentInstance** - Angular 19.1.0 introduces a new getter that allows developers to access the instance of the dynamically created component
+- **NgComponentOutlet inputs binding** - New binding input in Angular 17 removes the need for explicit injectors
+- **NgComponentOutlet with signals** - Integration with signal-based components
+- **Dynamic component instance access** - Access methods and properties of the component, update data or pass new values after it has been loaded
+- **Improved DI integration** - Better dependency injection support for dynamic components
+
+These NgComponentOutlet improvements make dynamic component creation much easier and more powerful. The componentInstance property allows access to the instance of the component created by the directive, which was previously difficult to achieve.
+
+So your complete learning list now includes all the previous features I mentioned plus these NgComponentOutlet enhancements. The NgComponentOutlet improvements are particularly useful for:
+
+- Creating dynamic forms and UI components
+- Building plugin-like architectures
+- Runtime component loading scenarios
+- Component factories and dynamic rendering
+
+These features make NgComponentOutlet much more practical for real-world dynamic component scenarios compared to the older, more complex approaches that required manual component creation.
+
+
 <img width="1920" height="1080" alt="Screenshot (636)" src="https://github.com/user-attachments/assets/63be8108-818f-4e23-832f-a4a607f4a15f" />
 <img width="1920" height="1080" alt="Screenshot (637)" src="https://github.com/user-attachments/assets/0679bba4-152d-45c2-bfa6-0d5b502185d0" />
 <img width="1920" height="1080" alt="Screenshot (638)" src="https://github.com/user-attachments/assets/3d94d521-8020-4dc1-ab5d-69364233add7" />
